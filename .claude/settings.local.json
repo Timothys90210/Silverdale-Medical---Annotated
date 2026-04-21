@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"D:/projects/Silverdale Medical - Annotated\" log --oneline -10)",
+      "Bash(git *)",
+      "Bash(npx skills *)"
+    ]
+  }
+}

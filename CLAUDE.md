@@ -12,21 +12,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 4. If neither exists, create them before starting
 
-5. **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
+5. **Install required skills** — see the [SKILLS](#skills) section. Install any that are missing, then invoke them before writing any frontend code.
 
 6. **All website/frontend code must be written in TypeScript.** Use Vite + TypeScript as the build stack. Source files go in `src/`. Never write plain HTML-only sites with inline scripts.
 
-5. ** Reference Images **, if a reference image is provided: match layout, spacing, typography and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
+7. **Reference Images** — if a reference image is provided: match layout, spacing, typography and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
 
-- If not reference image: design from scratch with high craft (see guardrails below).
-- Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when no visible differences remain or user says so.
+   - If no reference image: design from scratch with high craft (see guardrails below).
+   - Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when no visible differences remain or user says so.
 
 
  
+
+## SKILLS
+
+The following skills must be installed on each project before writing any frontend code. Check if present and install if missing.
+
+| Skill | Install command |
+|---|---|
+| `frontend-design` | `/plugin marketplace add anthropics/claude-code` then `/plugin install frontend-design@claude-code-plugins` |
+| `web-design-guidelines` | `npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines` |
+| `find-skills` | `npx skills add https://github.com/vercel-labs/skills --skill find-skills` |
 
 ## SCREENSHOT WORKFLOW
  
-- Puppeteer is installed at D:/projects/Maths Development/MathsDevelopment/node_modules/puppeteer/. Chrome cache is at C:/Users/Tim/.cache/puppeteer/.
+- Puppeteer is installed locally in this project (`node_modules/puppeteer`). Chrome cache is at `C:/Users/Tim/.cache/puppeteer/`.
 - Always screenshot from localhost: node screenshot.js http://localhost:[port]/site1.html screenshots/label.png
 - The script is `screenshot.js` (not screenshot.mjs). Usage: `node screenshot.js <url> <output-path> [width] [height]`
 - Screenshots save to `screenshots/` directory (tracked in .gitignore, untracked from git)
@@ -34,7 +44,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - After screenshotting, read the PNG from temporary screenshots/ with the Read tool — Claude can see and analyze the image directly.
 - When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"
 - Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing
- 
+
+## OPERATING RULES
 
 ### 1. Plan First
 
