@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git -C \"D:/projects/Silverdale Medical - Annotated\" log --oneline -10)",
       "Bash(git *)",
-      "Bash(npx skills *)"
+      "Bash(npx skills *)",
+      "Bash(node screenshot.js \"file:///d:/projects/Silverdale%20Medical%20-%20Annotated/annotations.html\" \"Screenshots/audit-preview.png\" 1440 900)"
     ]
   }
 }

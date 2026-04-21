@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silverdale Medical — Website Audit & Improvement Opportunities</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e63946;
+      --orange: #f4a261;
+      --green: #2a9d8f;
+      --blue: #3a86ff;
+      --purple: #8338ec;
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --border: #dde3ea;
+      --text: #1a2332;
+      --muted: #5a6a7e;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .site-header {
+      background: linear-gradient(135deg, #1a2332 0%, #2d4a6e 100%);
+      color: #fff;
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .site-header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
+    .site-header p  { margin-top: 10px; color: #a8b8cc; font-size: 1rem; max-width: 640px; margin-inline: auto; }
+    .badge-legend {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      margin-top: 28px;
+    }
+    .badge-legend span {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border-radius: 20px;
+      padding: 6px 14px; font-size: .8rem; color: #d0dce8;
+    }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ─── Summary bar ─────────────────────────────────────────── */
+    .summary-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
+    }
+    .summary-bar .stat { text-align: center; }
+    .summary-bar .stat strong { display: block; font-size: 1.8rem; font-weight: 700; color: var(--red); }
+    .summary-bar .stat small { color: var(--muted); font-size: .8rem; }
+
+    /* ─── Layout ──────────────────────────────────────────────── */
+    .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
+
+    .page-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 60px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+
+    .page-section-header {
+      background: #1a2332;
+      color: #fff;
+      padding: 20px 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .page-section-header .page-num {
+      background: var(--blue);
+      width: 34px; height: 34px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem; flex-shrink: 0;
+    }
+    .page-section-header h2 { font-size: 1.15rem; font-weight: 600; }
+    .page-section-header .url { color: #7a9abf; font-size: .8rem; margin-top: 2px; }
+
+    .page-body {
+      display: block;
+    }
+
+    /* ─── Screenshot pane ─────────────────────────────────────── */
+    .screenshot-pane {
+      border-bottom: 1px solid var(--border);
+      background: #edf0f4;
+      padding: 32px 40px;
+    }
+    .screenshot-wrapper {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+    .screenshot-wrapper img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.12);
+    }
+
+    /* Annotation pin */
+    .pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; color: #fff;
+      border: 2.5px solid rgba(255,255,255,.9);
+      box-shadow: 0 2px 12px rgba(0,0,0,.55);
+      cursor: default;
+      z-index: 10;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .pin.cat-ux      { background: var(--red); }
+    .pin.cat-design  { background: var(--orange); }
+    .pin.cat-content { background: var(--green); }
+    .pin.cat-tech    { background: var(--blue); }
+    .pin.cat-trust   { background: var(--purple); }
+
+    /* ─── Issues pane ─────────────────────────────────────────── */
+    .issues-pane {
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 14px;
+      align-content: start;
+    }
+    .issues-pane h3 {
+      grid-column: 1 / -1;
+      font-size: .7rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .issue {
+      display: flex; gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fafbfc;
+    }
+
+    .issue-pin {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fff;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .issue-pin.cat-ux      { background: var(--red); }
+    .issue-pin.cat-design  { background: var(--orange); }
+    .issue-pin.cat-content { background: var(--green); }
+    .issue-pin.cat-tech    { background: var(--blue); }
+    .issue-pin.cat-trust   { background: var(--purple); }
+
+    .issue-body {}
+    .issue-title { font-weight: 600; font-size: .9rem; margin-bottom: 3px; }
+    .issue-desc  { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+    .tag {
+      display: inline-block; font-size: .68rem; font-weight: 600;
+      padding: 2px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 4px;
+      letter-spacing: .3px;
+    }
+    .tag.ux      { background: #fde8e8; color: #b91c1c; }
+    .tag.design  { background: #fff1e6; color: #c2410c; }
+    .tag.content { background: #d1fae5; color: #065f46; }
+    .tag.tech    { background: #dbeafe; color: #1e40af; }
+    .tag.trust   { background: #ede9fe; color: #6d28d9; }
+
+    /* ─── Global opportunities ────────────────────────────────── */
+    .global-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 60px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .global-header {
+      background: linear-gradient(135deg, #2a9d8f 0%, #1a6b63 100%);
+      color: #fff;
+      padding: 20px 28px;
+    }
+    .global-header h2 { font-size: 1.15rem; font-weight: 600; }
+    .global-header p  { color: rgba(255,255,255,.75); font-size: .85rem; margin-top: 4px; }
+
+    .global-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0;
+    }
+    .global-card {
+      padding: 24px 28px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .global-card:nth-child(3n) { border-right: none; }
+    .global-card-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .global-card h4   { font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
+    .global-card p    { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+    /* priority matrix */
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .matrix-cell {
+      padding: 24px 28px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .matrix-cell:nth-child(even) { border-right: none; }
+    .matrix-cell h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; }
+    .matrix-cell ul { padding-left: 16px; }
+    .matrix-cell li { font-size: .82rem; color: var(--muted); margin-bottom: 6px; }
+    .do-now   { color: var(--red) !important; }
+    .do-next  { color: var(--orange) !important; }
+    .do-later { color: var(--green) !important; }
+    .do-dream { color: var(--blue) !important; }
+
+    /* ─── Print button (screen only) ────────────────────────── */
+    .print-btn {
+      position: fixed; bottom: 24px; right: 24px; z-index: 100;
+      background: #1a2332; color: #fff;
+      border: none; border-radius: 8px;
+      padding: 12px 22px; font-size: .88rem; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.25);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .print-btn:hover { background: #2d4a6e; }
+
+    /* ─── PDF / Print ────────────────────────────────────────── */
+    @media print {
+
+      /* Force all background colours and images to render */
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 12mm 14mm;
+      }
+
+      /* Cover page: header + summary bar sit together, then page break */
+      .site-header   { break-after: avoid; padding: 28px 32px; }
+      .summary-bar   { break-after: page;  padding: 16px 32px; }
+
+      /* Each page section begins on a fresh page */
+      .page-section  { break-before: page; margin-bottom: 0; border-radius: 0; }
+
+      /* Global sections also get their own page */
+      .global-section { break-before: page; border-radius: 0; }
+
+      /* Never split an issue row or a card mid-page */
+      .issue         { break-inside: avoid; }
+      .global-card   { break-inside: avoid; }
+      .matrix-cell   { break-inside: avoid; }
+
+      /* Remove screen chrome that wastes ink */
+      body           { background: #fff; }
+      .container     { max-width: 100%; padding: 0; }
+      .print-btn     { display: none; }
+      .page-section,
+      .global-section { box-shadow: none; overflow: visible; border: 1px solid #ccd3db; }
+
+      /* Restore side-by-side for print so screenshots don't push issues off-page */
+      .page-body {
+        display: grid;
+        grid-template-columns: 42% 1fr;
+      }
+      .screenshot-pane {
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+        padding: 14px;
+        background: #f0f2f5;
+      }
+      .screenshot-wrapper img { max-height: 460px; width: auto; max-width: 100%; }
+
+      /* Annotation pins — keep them visible at print size */
+      .pin { width: 20px; height: 20px; font-size: 10px; border-width: 1.5px; }
+
+      /* Issues pane: single column in print */
+      .issues-pane {
+        display: block;
+        padding: 16px 20px;
+      }
+      .issues-pane h3 { margin-bottom: 10px; }
+      .issue {
+        border-radius: 6px;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+      }
+      .issue-desc { font-size: .76rem; }
+
+      /* Section headers */
+      .page-section-header { padding: 14px 20px; }
+      .page-section-header h2 { font-size: 1rem; }
+
+      /* Global grid: force 3 equal columns in landscape */
+      .global-grid { grid-template-columns: repeat(3, 1fr); }
+      .global-card:nth-child(3n)   { border-right: none; }
+      .global-card:nth-child(3n+1) { border-right: 1px solid var(--border); }
+      .global-card:nth-child(3n+2) { border-right: 1px solid var(--border); }
+
+      /* Priority matrix: keep 2 columns */
+      .matrix { grid-template-columns: 1fr 1fr; }
+
+      /* Badge legend in header */
+      .badge-legend span { background: rgba(255,255,255,.15); }
+
+      /* Footer note */
+      body > .container > p:last-child { break-before: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  Save as PDF
+</button>
+
+<!-- ═══════════════════════════════════════════════════ HEADER -->
+<header class="site-header">
+  <h1>Silverdale Medical — Here's What We Found</h1>
+  <p>A walk through every page on the current site — what's working, what's ready for a refresh, and where some fairly straightforward changes could make a real difference for your patients.</p>
+  <div class="badge-legend">
+    <span><span class="dot" style="background:var(--red)"></span> UX / Usability</span>
+    <span><span class="dot" style="background:var(--orange)"></span> Visual Design</span>
+    <span><span class="dot" style="background:var(--green)"></span> Content</span>
+    <span><span class="dot" style="background:var(--blue)"></span> Technical</span>
+    <span><span class="dot" style="background:var(--purple)"></span> Trust &amp; Credibility</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ SUMMARY BAR -->
+<div class="summary-bar">
+  <div class="stat"><strong>8</strong><small>Pages Reviewed</small></div>
+  <div class="stat"><strong>52</strong><small>Things we spotted</small></div>
+  <div class="stat"><strong>14</strong><small>Do these first</small></div>
+  <div class="stat"><strong>9</strong><small>Run through everything</small></div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════ PAGE 1 — HOME -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">1</div>
+    <div>
+      <h2>Home Page</h2>
+      <div class="url">/ (root) — First impression &amp; primary conversion page</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - Home page.png" alt="Home page screenshot" />
+        <!-- Annotations -->
+        <span class="pin cat-design" style="left:50%;top:1.5%">1</span>
+        <span class="pin cat-ux"     style="left:50%;top:3.5%">2</span>
+        <span class="pin cat-ux"     style="left:80%;top:3.5%">3</span>
+        <span class="pin cat-design" style="left:50%;top:11%">4</span>
+        <span class="pin cat-content" style="left:25%;top:24%">5</span>
+        <span class="pin cat-design" style="left:50%;top:33%">6</span>
+        <span class="pin cat-design" style="left:50%;top:44%">7</span>
+        <span class="pin cat-content" style="left:50%;top:55%">8</span>
+        <span class="pin cat-ux"     style="left:50%;top:64%">9</span>
+        <span class="pin cat-design" style="left:50%;top:85%">10</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">1</div>
+        <div class="issue-body">
+          <div class="issue-title">Give the nav a bit more breathing room</div>
+          <div class="issue-desc">It works, it just needs some love. A bigger logo, cleaner spacing, and one really obvious "Book Appointment" button would make a huge difference for anyone landing on the site for the first time — especially on a phone.</div>
+          <span class="tag design">Design</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">2</div>
+        <div class="issue-body">
+          <div class="issue-title">The enrolment message is good — let's make sure people actually see it</div>
+          <div class="issue-desc">Right now it's a bit in competition with everything else happening at the top of the page. Ironically, giving it a calmer, more considered style would get it more attention, not less.</div>
+          <span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">3</div>
+        <div class="issue-body">
+          <div class="issue-title">Those quick action buttons are great — they just need a bit of polish</div>
+          <div class="issue-desc">Book, Scripts, Blood Results, Pay Online — you're already surfacing exactly what patients need, which is smart. Give each one a little icon and make it clearer which is the main action, and this strip becomes one of the most useful things on the whole site.</div>
+          <span class="tag ux">UX</span><span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">4</div>
+        <div class="issue-body">
+          <div class="issue-title">Swap the stock photo for something real</div>
+          <div class="issue-desc">The big image at the top is the first thing anyone sees. A real photo of the team or the practice — even just one good one — immediately makes the site feel like it belongs to Silverdale Medical specifically, not just any clinic. That matters more than people realise.</div>
+          <span class="tag design">Design</span><span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">5</div>
+        <div class="issue-body">
+          <div class="issue-title">Those info cards have good stuff in them — let's tidy them up</div>
+          <div class="issue-desc">The content's all there, it's just the styling that needs a bit of consistency. Same format, same type size, same icon style across all three would make them feel intentional rather than added at different times.</div>
+          <span class="tag content">Content</span><span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">6</div>
+        <div class="issue-body">
+          <div class="issue-title">The location cards just need to match each other</div>
+          <div class="issue-desc">They're all doing the same job — showing where you are and when you're open — they just don't quite look like they belong together yet. A consistent card style across all three would fix that straight away.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">7</div>
+        <div class="issue-body">
+          <div class="issue-title">The services section could use a refresh</div>
+          <div class="issue-desc">You offer a lot — and that's genuinely impressive. This section just needs the visuals to match. Updated icons and a one-liner under each service would help patients actually understand what's available, rather than just seeing a grid of symbols.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">8</div>
+        <div class="issue-body">
+          <div class="issue-title">This section has the right idea — give it more room</div>
+          <div class="issue-desc">"We're here to help" is exactly what patients need to hear. A proper photo of the team, a fuller headline, and two buttons — Book Online and Call Us — and this becomes one of the warmest parts of the whole page.</div>
+          <span class="tag content">Content</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">9</div>
+        <div class="issue-body">
+          <div class="issue-title">A few kind words from patients would go a long way here</div>
+          <div class="issue-desc">People trust other people. Even one or two genuine patient quotes — alongside something like "Serving Silverdale since 2008 · 4 locations · 20+ GPs" — would give new visitors that quiet reassurance that they're in the right place.</div>
+          <span class="tag trust">Trust</span><span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">10</div>
+        <div class="issue-body">
+          <div class="issue-title">The footer needs more room to breathe</div>
+          <div class="issue-desc">All the right stuff is in there — it's just a bit cramped. More padding, bigger text, and swapping those map embeds for a single "View All Locations" link would make it genuinely useful rather than something patients have to squint at.</div>
+          <span class="tag design">Design</span><span class="tag tech">Tech</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 2 — ABOUT -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">2</div>
+    <div>
+      <h2>About Us</h2>
+      <div class="url">/about — Practice story, values, and team</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - About us.png" alt="About Us screenshot" />
+        <span class="pin cat-design" style="left:50%;top:6%">1</span>
+        <span class="pin cat-content" style="left:50%;top:16%">2</span>
+        <span class="pin cat-content" style="left:50%;top:28%">3</span>
+        <span class="pin cat-ux"     style="left:50%;top:38%">4</span>
+        <span class="pin cat-trust"  style="left:50%;top:55%">5</span>
+        <span class="pin cat-design" style="left:50%;top:80%">6</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">1</div>
+        <div class="issue-body">
+          <div class="issue-title">It needs a photo up top — any photo, honestly</div>
+          <div class="issue-desc">Right now this page is just text on white, which feels a bit cold for an About page. A single warm image — the team, the building, anything real — immediately tells visitors who you are before they've read a word.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">2</div>
+        <div class="issue-body">
+          <div class="issue-title">There's a really good story here — let's tell it properly</div>
+          <div class="issue-desc">Two sentences isn't nearly enough. The practice has history, values, and a real connection to the community — that's worth sharing. Patients who feel like they know the practice before they walk in are far more likely to stay.</div>
+          <span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">3</div>
+        <div class="issue-body">
+          <div class="issue-title">Careers probably deserves its own page</div>
+          <div class="issue-desc">At the moment this page is trying to talk to patients and potential staff at the same time, which is a tough ask. Giving Careers its own space means both audiences get something that actually speaks to them.</div>
+          <span class="tag content">Content</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">4</div>
+        <div class="issue-body">
+          <div class="issue-title">Show us the team — this is honestly the most important thing on this page</div>
+          <div class="issue-desc">People choose their GP because of who they are, not just where they are. Faces, names, a line or two about each person — it makes the practice feel human. New patients especially want to know who they're walking in to see.</div>
+          <span class="tag ux">UX</span><span class="tag trust">Trust</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-trust">5</div>
+        <div class="issue-body">
+          <div class="issue-title">Show off the credentials — you've earned them</div>
+          <div class="issue-desc">RNZCGP membership, Te Whatu Ora enrolment status, any professional affiliations — patients do look for these things. A small logo strip takes five minutes to add and quietly tells people "this is a practice that takes quality seriously."</div>
+          <span class="tag trust">Trust</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">6</div>
+        <div class="issue-body">
+          <div class="issue-title">Four maps in the footer is a bit much</div>
+          <div class="issue-desc">The intention is spot on — patients do want to find your locations easily. But loading four Google Maps on every page slows things down noticeably. One "View Our Locations" link does the same job, better.</div>
+          <span class="tag design">Design</span><span class="tag tech">Tech</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 3 — CAREERS -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">3</div>
+    <div>
+      <h2>Careers</h2>
+      <div class="url">/careers — Staff recruitment and culture</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - Careers.png" alt="Careers screenshot" />
+        <span class="pin cat-design" style="left:50%;top:3%">1</span>
+        <span class="pin cat-content" style="left:50%;top:12%">2</span>
+        <span class="pin cat-design" style="left:50%;top:22%">3</span>
+        <span class="pin cat-content" style="left:50%;top:38%">4</span>
+        <span class="pin cat-ux"     style="left:50%;top:55%">5</span>
+        <span class="pin cat-design" style="left:50%;top:68%">6</span>
+        <span class="pin cat-content" style="left:50%;top:82%">7</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">1</div>
+        <div class="issue-body">
+          <div class="issue-title">Start with a reason to keep reading</div>
+          <div class="issue-desc">Right now the page just jumps straight into text. A photo of the team at work and a headline like "Grow your career in a community you love" would immediately make a candidate feel something — and that's what gets people to apply.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">2</div>
+        <div class="issue-body">
+          <div class="issue-title">There's a lot of good information here — it just needs to breathe</div>
+          <div class="issue-desc">Breaking it into sections — a culture bit, a "why join us" grid, then the actual roles — would make a huge difference. Right now it all blurs together, and candidates need to be able to scan and self-select quickly.</div>
+          <span class="tag content">Content</span><span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">3</div>
+        <div class="issue-body">
+          <div class="issue-title">The team photos are lovely — they just need a bit of tidying</div>
+          <div class="issue-desc">Showing real people is exactly the right call. They just need to be the same size and shape, with names and roles underneath. It's a small thing that makes the section feel properly put together rather than assembled over time.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">4</div>
+        <div class="issue-body">
+          <div class="issue-title">What roles are actually open right now? Make that obvious</div>
+          <div class="issue-desc">A card for each role — title, location, whether it's full-time or part-time, a couple of lines, and an Apply button — means candidates don't have to dig. If the role's there, they'll find it. If it's not, they'll know that too.</div>
+          <span class="tag content">Content</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">5</div>
+        <div class="issue-body">
+          <div class="issue-title">How do people actually apply? That needs to be clearer</div>
+          <div class="issue-desc">Someone has read the page, they're interested — and then what? A simple "email us your CV here" button, or even just a contact form, would stop good candidates from bouncing away because they couldn't figure out the next step.</div>
+          <span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">6</div>
+        <div class="issue-body">
+          <div class="issue-title">Those landscape photos are stunning — use them properly</div>
+          <div class="issue-desc">Seriously, the aerial shots of Silverdale are gorgeous. Used as deliberate full-width section breaks — with a line of text placed thoughtfully — they'd remind candidates exactly where they'd be working. That's a real selling point.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">7</div>
+        <div class="issue-body">
+          <div class="issue-title">Why is this a great place to work? Say it out loud</div>
+          <div class="issue-desc">That's the question every candidate is quietly asking. Team culture, flexibility, development, the community — whatever makes working here genuinely good, put it on the page. Job descriptions are everywhere. The real reason to join isn't.</div>
+          <span class="tag content">Content</span><span class="tag trust">Trust</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 4 — COVID-19 -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">4</div>
+    <div>
+      <h2>Covid-19</h2>
+      <div class="url">/covid-19 — Patient guidance page</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - Covid19.png" alt="Covid-19 screenshot" />
+        <span class="pin cat-content" style="left:50%;top:8%">1</span>
+        <span class="pin cat-design" style="left:50%;top:18%">2</span>
+        <span class="pin cat-ux"     style="left:50%;top:30%">3</span>
+        <span class="pin cat-content" style="left:50%;top:48%">4</span>
+        <span class="pin cat-tech"   style="left:50%;top:65%">5</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">1</div>
+        <div class="issue-body">
+          <div class="issue-title">This page could do so much more than Covid</div>
+          <div class="issue-desc">The idea behind it is really solid — a place patients can check for health guidance. Broadening it to cover flu season, RSV, vaccinations, whatever's relevant right now — keeps it useful all year instead of just occasionally.</div>
+          <span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">2</div>
+        <div class="issue-body">
+          <div class="issue-title">The headings here don't quite match the rest of the site</div>
+          <div class="issue-desc">It's a small thing, but the styling on this page looks a bit disconnected from everything else. Bringing the headings into line with the rest of the site would make it feel like it was always meant to be here.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">3</div>
+        <div class="issue-body">
+          <div class="issue-title">Patients reading this are probably feeling rough — make it scannable</div>
+          <div class="issue-desc">When someone's unwell, they're not reading carefully. A visual symptom checklist with icons and clear spacing means they can find what they need in a few seconds. That's exactly what this page should do.</div>
+          <span class="tag ux">UX</span><span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">4</div>
+        <div class="issue-body">
+          <div class="issue-title">After they've read this — what do they do next?</div>
+          <div class="issue-desc">Right now the page just ends. A clear callout — "If you have symptoms, please call us before coming in" with a tap-to-call number — answers the obvious question before patients have to go looking for it.</div>
+          <span class="tag content">Content</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-tech">5</div>
+        <div class="issue-body">
+          <div class="issue-title">Just add a "last reviewed" date — it matters more than you'd think</div>
+          <div class="issue-desc">Patients genuinely want to know if what they're reading is still current. One small line — "Last reviewed: March 2025" — does a lot of quiet work to reassure people that the information is trustworthy.</div>
+          <span class="tag tech">Tech</span><span class="tag trust">Trust</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 5 — SPECIALISTS -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">5</div>
+    <div>
+      <h2>Specialists / Departments</h2>
+      <div class="url">/specialists — Medical specialties offered</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - department.png" alt="Specialists screenshot" />
+        <span class="pin cat-design" style="left:50%;top:5%">1</span>
+        <span class="pin cat-design" style="left:50%;top:18%">2</span>
+        <span class="pin cat-content" style="left:50%;top:30%">3</span>
+        <span class="pin cat-trust"  style="left:50%;top:45%">4</span>
+        <span class="pin cat-ux"     style="left:50%;top:58%">5</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">1</div>
+        <div class="issue-body">
+          <div class="issue-title">A sentence of context at the top would really help</div>
+          <div class="issue-desc">Patients landing here might not know how specialist access works — do they need a referral? Can they just call? A short, friendly intro before the list answers those questions and helps people feel less lost.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">2</div>
+        <div class="issue-body">
+          <div class="issue-title">Put faces on these cards if at all possible</div>
+          <div class="issue-desc">Generic medical icons do the job, but a headshot does it so much better. Even if photos aren't available for everyone, getting them for most specialists would make this page feel like a real introduction rather than a directory.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">3</div>
+        <div class="issue-body">
+          <div class="issue-title">Some bios are there, some aren't — let's even that out</div>
+          <div class="issue-desc">A consistent format for each specialist — name, what they do, when they visit, a couple of sentences about their background — gives patients the information they need to feel confident asking for a referral. It doesn't need to be long.</div>
+          <span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-trust">4</div>
+        <div class="issue-body">
+          <div class="issue-title">How do patients actually get to see these specialists?</div>
+          <div class="issue-desc">It's not obvious. A simple "How it works" note — talk to your GP, they'll arrange the referral — would save patients a phone call and make the whole thing feel much less daunting than it might seem right now.</div>
+          <span class="tag trust">Trust</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">5</div>
+        <div class="issue-body">
+          <div class="issue-title">As this list grows, some filters would save people a lot of scrolling</div>
+          <div class="issue-desc">Simple category tabs — Surgical / Physician / Allied Health — or even just a search box would let patients get straight to what they're looking for. Worth keeping in mind as more specialists are added over time.</div>
+          <span class="tag ux">UX</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 6 — FEES -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">6</div>
+    <div>
+      <h2>Fees</h2>
+      <div class="url">/fees — Consultation and service pricing</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - Fees.png" alt="Fees screenshot" />
+        <span class="pin cat-design" style="left:50%;top:4%">1</span>
+        <span class="pin cat-ux"     style="left:50%;top:12%">2</span>
+        <span class="pin cat-design" style="left:50%;top:22%">3</span>
+        <span class="pin cat-ux"     style="left:50%;top:38%">4</span>
+        <span class="pin cat-content" style="left:50%;top:55%">5</span>
+        <span class="pin cat-tech"   style="left:50%;top:72%">6</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">1</div>
+        <div class="issue-body">
+          <div class="issue-title">The colour coding is a nice touch — just needs a key</div>
+          <div class="issue-desc">Using colours to separate fee types is genuinely useful. Patients just need a quick legend at the top — "Green = enrolled, Orange = casual" — so they're not guessing. One line, big difference.</div>
+          <span class="tag design">Design</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">2</div>
+        <div class="issue-body">
+          <div class="issue-title">This page is long — let people jump to what they need</div>
+          <div class="issue-desc">A few quick links at the top — Enrolled Patients, Casual Patients, Specialist Fees, Pharmacy — means patients aren't scrolling through sections that don't apply to them. Small usability win, especially on mobile.</div>
+          <span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">3</div>
+        <div class="issue-body">
+          <div class="issue-title">These tables are tricky on a phone — worth fixing</div>
+          <div class="issue-desc">Most patients will check this on their phone, possibly on the way to an appointment. Wide tables that require horizontal scrolling are frustrating. Collapsible sections or a simpler layout would make this so much easier to use on a small screen.</div>
+          <span class="tag design">Design</span><span class="tag tech">Tech</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">4</div>
+        <div class="issue-body">
+          <div class="issue-title">New patients won't know what "enrolled" means — explain it early</div>
+          <div class="issue-desc">It's obvious to the team, but a new patient seeing two different price columns might just be confused. A quick, friendly explainer at the top — what enrolled means, how to become one — makes them feel welcomed rather than bamboozled.</div>
+          <span class="tag ux">UX</span><span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">5</div>
+        <div class="issue-body">
+          <div class="issue-title">Add a date so patients know these are the current fees</div>
+          <div class="issue-desc">Nobody wants to show up expecting to pay one amount and find out it's changed. A simple "Fees current as of April 2025" note at the top takes seconds to add and avoids that awkward reception desk moment entirely.</div>
+          <span class="tag content">Content</span><span class="tag trust">Trust</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-tech">6</div>
+        <div class="issue-body">
+          <div class="issue-title">Put the "Pay Online" button right here on this page</div>
+          <div class="issue-desc">If someone's just checked what they owe, they're probably ready to pay it. A "Pay Your Bill Online" button at the top and bottom of this page saves them having to go find it somewhere else.</div>
+          <span class="tag tech">Tech</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 7 — LATEST NEWS -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">7</div>
+    <div>
+      <h2>Latest News</h2>
+      <div class="url">/latest-news — Practice news and health updates</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - Latest news.png" alt="Latest news screenshot" />
+        <span class="pin cat-design" style="left:50%;top:4%">1</span>
+        <span class="pin cat-content" style="left:50%;top:14%">2</span>
+        <span class="pin cat-design" style="left:50%;top:26%">3</span>
+        <span class="pin cat-ux"     style="left:50%;top:42%">4</span>
+        <span class="pin cat-design" style="left:50%;top:62%">5</span>
+        <span class="pin cat-tech"   style="left:50%;top:78%">6</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">1</div>
+        <div class="issue-body">
+          <div class="issue-title">Cards with images would make this so much more inviting</div>
+          <div class="issue-desc">The content here is genuinely good — it just doesn't look it right now. Cards with a headline, date, short excerpt, and an image would make patients want to click rather than skim past. It's the difference between a notice board and a real news page.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">2</div>
+        <div class="issue-body">
+          <div class="issue-title">A bit of organisation would go a long way here</div>
+          <div class="issue-desc">Practice updates and health articles are quite different things, but they're all sitting together. Simple tags — Practice Updates, Health Info, Community — let patients filter to what matters to them without wading through everything.</div>
+          <span class="tag content">Content</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">3</div>
+        <div class="issue-body">
+          <div class="issue-title">Longer articles need some visual breaks</div>
+          <div class="issue-desc">A header image and a couple of subheadings do more than you'd expect. They make an article feel less like homework and more like something worth reading. Even one image at the top completely changes the feel of a post.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">4</div>
+        <div class="issue-body">
+          <div class="issue-title">People reading this actually want to hear from you — capture that</div>
+          <div class="issue-desc">Anyone on this page is already engaged. A simple "Get updates in your inbox" signup would give them a way to stay connected — and give the practice a direct line to patients that doesn't depend on social media algorithms.</div>
+          <span class="tag ux">UX</span><span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">5</div>
+        <div class="issue-body">
+          <div class="issue-title">The Facebook widget slows everything down — a link does the same job</div>
+          <div class="issue-desc">Being active on Facebook is great and worth acknowledging on the site. But the embedded feed loads slowly and looks out of place. A simple "Follow us on Facebook" button gives patients the connection without the clutter.</div>
+          <span class="tag design">Design</span><span class="tag tech">Tech</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-tech">6</div>
+        <div class="issue-body">
+          <div class="issue-title">Worth thinking about how this page scales as you add more content</div>
+          <div class="issue-desc">Right now it all lives on one page, which is fine. But as more articles are added, a "load more" button or simple pagination would keep things manageable — and make older content actually findable rather than buried at the bottom.</div>
+          <span class="tag tech">Tech</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PAGE 8 — LINKS -->
+<section class="page-section">
+  <div class="page-section-header">
+    <div class="page-num">8</div>
+    <div>
+      <h2>Links</h2>
+      <div class="url">/links — External health resources</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="screenshot-pane">
+      <div class="screenshot-wrapper">
+        <img src="Screenshots/SDM - Links.png" alt="Links screenshot" />
+        <span class="pin cat-content" style="left:50%;top:8%">1</span>
+        <span class="pin cat-design" style="left:50%;top:20%">2</span>
+        <span class="pin cat-content" style="left:50%;top:34%">3</span>
+        <span class="pin cat-ux"     style="left:50%;top:48%">4</span>
+        <span class="pin cat-content" style="left:50%;top:62%">5</span>
+      </div>
+    </div>
+    <div class="issues-pane">
+      <h3>What we noticed</h3>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">1</div>
+        <div class="issue-body">
+          <div class="issue-title">"Links" doesn't really tell patients why they should care</div>
+          <div class="issue-desc">"Patient Resources" or "Helpful Health Links" says it so much better. And a single intro sentence — "We've put together some trusted resources to support your health at home" — makes it feel like it was curated for them, not just copied from a list.</div>
+          <span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-design">2</div>
+        <div class="issue-body">
+          <div class="issue-title">Just a line of context under each link would make a world of difference</div>
+          <div class="issue-desc">Right now it's just a list of names. Patients don't know if they should click or not. One sentence per link — what it is, who it's for — turns this from a list into something genuinely useful. Cards with a little icon would make it look the part too.</div>
+          <span class="tag design">Design</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">3</div>
+        <div class="issue-body">
+          <div class="issue-title">Group them by topic so people can find what they need</div>
+          <div class="issue-desc">Mental health resources next to ministry websites next to local services — it's a bit of a mix right now. Grouping by topic — Mental Health, Kids' Health, Chronic Conditions, Official Sources — means patients land on what's relevant to them straight away.</div>
+          <span class="tag content">Content</span><span class="tag ux">UX</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-ux">4</div>
+        <div class="issue-body">
+          <div class="issue-title">The Arts Centre mention is a lovely detail — it just needs a better home</div>
+          <div class="issue-desc">That kind of community connection says a lot about the practice. But buried in a links page, most people miss it. The About page, or even a small Community section, would give it the space to actually land.</div>
+          <span class="tag ux">UX</span><span class="tag content">Content</span>
+        </div>
+      </div>
+
+      <div class="issue">
+        <div class="issue-pin cat-content">5</div>
+        <div class="issue-body">
+          <div class="issue-title">Links go stale — worth checking these every so often</div>
+          <div class="issue-desc">A "Last reviewed: [date]" note at the top tells patients the list is looked after. And a quick quarterly check to make sure nothing's broken or outdated is a small habit that makes a real difference to how much patients trust the page.</div>
+          <span class="tag content">Content</span><span class="tag tech">Tech</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ GLOBAL OPPORTUNITIES -->
+<section class="global-section">
+  <div class="global-header">
+    <h2>Things That Run Across the Whole Site</h2>
+    <p>These aren't tied to any one page — they're the foundations. Getting these right first will make everything else land better.</p>
+  </div>
+  <div class="global-grid">
+
+    <div class="global-card">
+      <div class="global-card-icon">📱</div>
+      <h4>It needs to work properly on a phone</h4>
+      <p>Most patients will use this site on their phones — checking fees on the way to an appointment, looking up a number in a hurry. The new site needs to feel just as good on a small screen as it does on a desktop, from the very start.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">🎨</div>
+      <h4>The site needs to feel like one thing, not many things</h4>
+      <p>Right now different pages feel like they were built at different times — because they probably were. Deciding on two fonts, a few brand colours, and consistent spacing, then applying them everywhere, would pull the whole site together in a way that's immediately noticeable.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">♿</div>
+      <h4>Make sure everyone can use it</h4>
+      <p>Some patients will have low vision, use a screen reader, or struggle with small text. Making sure the site has good contrast, clear labels, and works with a keyboard doesn't take much effort — and it means nobody gets left out.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">⚡</div>
+      <h4>Slow pages are genuinely frustrating — especially for unwell patients</h4>
+      <p>If someone's looking up symptoms or a phone number in a hurry, a slow-loading page is the last thing they need. Optimising images and cutting down on heavy embeds (those Google Maps in particular) would make a noticeable difference to how the site feels.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">🔍</div>
+      <h4>People searching for a GP nearby should be finding you</h4>
+      <p>Searches like "GP near Silverdale" or "doctor Millwater" are happening every day. With a bit of attention to how the site describes itself to Google, you'd be showing up for exactly those searches — from people actively looking for a practice like yours.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">🗺️</div>
+      <h4>The footer shows up on every single page — it's worth getting right</h4>
+      <p>Every patient who scrolls to the bottom of any page sees this. Right now it's a bit crowded and hard to read. A clean footer with proper spacing and a single locations link instead of four maps would feel much more considered.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">📞</div>
+      <h4>The phone number should be impossible to miss</h4>
+      <p>For a medical practice, the phone number is arguably the most important thing on the whole site. It should be right at the top, on every page, big enough to tap easily on a phone. If someone needs to call urgently, they shouldn't have to go looking for it.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">🔐</div>
+      <h4>A privacy policy needs to be easy to find</h4>
+      <p>Patients are sharing health information with the practice — they should be able to find your Privacy Policy without hunting for it. It's a legal requirement, but more than that, it's just good for trust to show people their information is looked after properly.</p>
+    </div>
+
+    <div class="global-card">
+      <div class="global-card-icon">🌐</div>
+      <h4>Make sure the padlock is always showing</h4>
+      <p>Patients notice when a site isn't secure — especially when it's a health website. Keeping HTTPS running properly across every page, with a current certificate, is one of those things that just needs to be done. It's table stakes for any health site.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ PRIORITY MATRIX -->
+<section class="global-section">
+  <div class="global-header">
+    <h2>Where to Start</h2>
+    <p>Not everything needs to happen at once. Here's a rough sense of what to tackle first, what comes next, and what can wait.</p>
+  </div>
+  <div class="matrix">
+    <div class="matrix-cell">
+      <h4 class="do-now">🔴 Do these first — quick wins that matter</h4>
+      <ul>
+        <li>Phone number in the header, big and tappable</li>
+        <li>Replace the footer maps with one locations link</li>
+        <li>Add "last reviewed" dates to Fees and Health Alerts</li>
+        <li>Give the action bar buttons (Book / Scripts / Pay) some visual weight</li>
+        <li>Add a booking button to every page</li>
+        <li>Fix text contrast where it's hard to read</li>
+      </ul>
+    </div>
+    <div class="matrix-cell">
+      <h4 class="do-next">🟠 These make the biggest difference</h4>
+      <ul>
+        <li>New navigation — sticky, mobile-friendly, with one clear CTA</li>
+        <li>Real photography in the hero — this changes everything</li>
+        <li>GP and team profiles on the About page</li>
+        <li>News page with proper cards and images</li>
+        <li>Fees page with anchor links and an enrolment explainer</li>
+        <li>Testimonials and accreditation badges somewhere visible</li>
+      </ul>
+    </div>
+    <div class="matrix-cell">
+      <h4 class="do-later">🟢 Once the core is sorted</h4>
+      <ul>
+        <li>Consistent design across every page — fonts, colours, spacing</li>
+        <li>Careers page with proper job cards and a culture section</li>
+        <li>Specialist cards with photos and consistent bios</li>
+        <li>Patient Resources redesigned as categorised cards</li>
+        <li>Newsletter signup on the News page</li>
+        <li>SEO housekeeping — page titles, descriptions, structured data</li>
+      </ul>
+    </div>
+    <div class="matrix-cell">
+      <h4 class="do-dream">🔵 The exciting stuff — when you're ready</h4>
+      <ul>
+        <li>Online appointment booking through a patient portal</li>
+        <li>Repeat prescription requests online</li>
+        <li>A proper health library patients can actually browse</li>
+        <li>An interactive locations map page</li>
+        <li>Resources for the team internally</li>
+        <li>Multilingual support — especially for Pacific communities</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<p style="text-align:center;color:var(--muted);font-size:.8rem;padding:40px;">
+  Silverdale Medical — Website Review, April 2026
+</p>
+
+</div><!-- /container -->
+</body>
+</html>
