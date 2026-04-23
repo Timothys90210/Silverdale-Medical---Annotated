@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Specialists — Silverdale Medical</title>
+  <link rel="stylesheet" href="/src/styles/tokens.css" />
+  <link rel="stylesheet" href="/src/styles/global.css" />
+  <link rel="stylesheet" href="/src/styles/nav.css" />
+  <link rel="stylesheet" href="/src/styles/footer.css" />
+  <link rel="stylesheet" href="/src/styles/specialists.css" />
+</head>
+<body>
+
+  <div class="enrolment-banner">
+    <span>Enrolling new patients at all four locations.</span>
+    <a href="#">Check availability →</a>
+  </div>
+
+  <div id="nav-root"></div>
+
+  <main>
+
+    <div class="inner-page-header">
+      <div class="container">
+        <span class="section-label">Specialists</span>
+        <h1>Specialist care,<br>close to home <span class="itag itag-redesigned">Redesigned</span></h1>
+        <p>Our visiting specialists work alongside your GP to provide integrated, specialist-level care — without the trip to a hospital clinic.</p>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="how-section">
+      <div class="container">
+        <div class="section-header fade-up" style="margin-bottom:var(--space-10)">
+          <span class="section-label">How It Works</span>
+          <h2>Three simple steps <span class="itag itag-new">New</span></h2>
+        </div>
+        <div class="how-steps">
+          <div class="how-step fade-up">
+            <div class="how-number">1</div>
+            <h3>See Your GP</h3>
+            <p>Talk to your regular GP about your concern. They'll assess whether specialist input would help.</p>
+          </div>
+          <div class="how-step fade-up">
+            <div class="how-number">2</div>
+            <h3>GP Arranges Referral</h3>
+            <p>Your GP handles the referral paperwork and coordinates with the right specialist for you.</p>
+          </div>
+          <div class="how-step fade-up">
+            <div class="how-number">3</div>
+            <h3>Specialist Appointment</h3>
+            <p>See the specialist right here at one of our clinics — no hospital parking, no long waits.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specialist grid -->
+    <div class="specialists-content">
+      <div class="container">
+        <div class="section-header fade-up">
+          <span class="section-label">Our Specialists</span>
+          <h2>Experienced professionals, on your doorstep <span class="itag itag-improved">Improved</span></h2>
+          <p>Each of our visiting specialists is a fully qualified, registered clinician in their field.</p>
+        </div>
+
+        <div class="specialists-filters fade-up">
+          <button class="filter-pill active" data-cat="all">All Specialists <span class="itag itag-new">New filters</span></button>
+          <button class="filter-pill" data-cat="surgical">Surgical</button>
+          <button class="filter-pill" data-cat="physician">Physician</button>
+          <button class="filter-pill" data-cat="allied">Allied Health</button>
+          <button class="filter-pill" data-cat="skin">Skin</button>
+        </div>
+
+        <div class="specialists-grid">
+
+          <div class="specialist-card fade-up" data-cat="surgical">
+            <div class="specialist-photo">
+              <img src="https://placehold.co/400x200/eef7e5/6aaa3d?text=General+Surgeon" alt="General Surgeon" />
+            </div>
+            <div class="specialist-body">
+              <span class="specialist-specialty">Surgical</span>
+              <div class="specialist-name">Mr. David Pearce</div>
+              <div class="specialist-title">General &amp; Colorectal Surgeon</div>
+              <p class="specialist-bio">Mr. Pearce specialises in laparoscopic procedures, hernia repair, and colorectal conditions. He visits us weekly from Auckland City Hospital.</p>
+              <div class="specialist-schedule">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Every Tuesday · Silverdale clinic
+              </div>
+            </div>
+          </div>
+
+          <div class="specialist-card fade-up" data-cat="physician">
+            <div class="specialist-photo">
+              <img src="https://placehold.co/400x200/eef7e5/6aaa3d?text=Cardiologist" alt="Cardiologist" />
+            </div>
+            <div class="specialist-body">
+              <span class="specialist-specialty">Physician</span>
+              <div class="specialist-name">Dr. Linda Yuen</div>
+              <div class="specialist-title">Cardiologist</div>
+              <p class="specialist-bio">Dr. Yuen focuses on heart failure, arrhythmias, and preventive cardiology. She offers both initial consultations and follow-up reviews.</p>
+              <div class="specialist-schedule">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Fortnightly Wednesday · Millwater clinic
+              </div>
+            </div>
+          </div>
+
+          <div class="specialist-card fade-up" data-cat="skin">
+            <div class="specialist-photo">
+              <img src="https://placehold.co/400x200/eef7e5/6aaa3d?text=Dermatologist" alt="Dermatologist" />
+            </div>
+            <div class="specialist-body">
+              <span class="specialist-specialty">Skin</span>
+              <div class="specialist-name">Dr. Rachel Kim</div>
+              <div class="specialist-title">Dermatologist</div>
+              <p class="specialist-bio">Dr. Kim provides consultation for chronic skin conditions, skin cancer assessment, and cosmetic dermatology through our SkinSafe clinic.</p>
+              <div class="specialist-schedule">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Weekly Thursday · SkinSafe, Orewa
+              </div>
+            </div>
+          </div>
+
+          <div class="specialist-card fade-up" data-cat="allied">
+            <div class="specialist-photo">
+              <img src="https://placehold.co/400x200/eef7e5/6aaa3d?text=Physiotherapist" alt="Physiotherapist" />
+            </div>
+            <div class="specialist-body">
+              <span class="specialist-specialty">Allied Health</span>
+              <div class="specialist-name">Sam O'Brien</div>
+              <div class="specialist-title">Senior Physiotherapist</div>
+              <p class="specialist-bio">Sam works with musculoskeletal injuries, post-surgical rehab, and sports injuries. ACC registered and available at two sites.</p>
+              <div class="specialist-schedule">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Mon, Wed, Fri · Silverdale &amp; Millwater
+              </div>
+            </div>
+          </div>
+
+          <div class="specialist-card fade-up" data-cat="physician">
+            <div class="specialist-photo">
+              <img src="https://placehold.co/400x200/eef7e5/6aaa3d?text=Endocrinologist" alt="Endocrinologist" />
+            </div>
+            <div class="specialist-body">
+              <span class="specialist-specialty">Physician</span>
+              <div class="specialist-name">Dr. Arjun Nair</div>
+              <div class="specialist-title">Endocrinologist</div>
+              <p class="specialist-bio">Dr. Nair manages diabetes, thyroid conditions, hormonal disorders, and metabolic disease. Referral from your GP required.</p>
+              <div class="specialist-schedule">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Monthly · Silverdale clinic
+              </div>
+            </div>
+          </div>
+
+          <div class="specialist-card fade-up" data-cat="allied">
+            <div class="specialist-photo">
+              <img src="https://placehold.co/400x200/eef7e5/6aaa3d?text=Dietitian" alt="Dietitian" />
+            </div>
+            <div class="specialist-body">
+              <span class="specialist-specialty">Allied Health</span>
+              <div class="specialist-name">Kate Williamson</div>
+              <div class="specialist-title">Clinical Dietitian</div>
+              <p class="specialist-bio">Kate provides personalised nutrition plans for diabetes, weight management, IBS, and heart health. Funded sessions available through your GP.</p>
+              <div class="specialist-schedule">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Tuesday &amp; Thursday · Weiti Creek
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-inner">
+          <h2>Need a specialist referral?</h2>
+          <p>Start by booking an appointment with your GP — they'll guide you through the right referral pathway.</p>
+          <div class="cta-actions">
+            <a href="#book" class="btn btn-white">Book a GP Appointment</a>
+            <a href="/fees.html" class="btn btn-outline-white">View Specialist Fees</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script type="module" src="/src/pages/specialists.ts"></script>
+</body>
+</html>
