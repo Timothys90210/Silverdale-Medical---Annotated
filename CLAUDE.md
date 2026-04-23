@@ -2,135 +2,80 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## SESSION START
+## WHAT THIS REPO IS
 
-1. **Switch to `dev` branch** — always. Run `git checkout dev && git pull` before touching anything. Never work on `main` directly.
+A static website audit and annotation report for Silverdale Medical (SDM). The primary deliverable is `annotations.html` — a single self-contained HTML file that displays annotated screenshots of the current SDM website with categorised improvement opportunities.
 
-2. Read tasks/lessons.md — apply all lessons before touching anything
+No build system, no package manager, no framework. Open `annotations.html` directly in a browser.
 
-3. Read tasks/todo.md — understand current state
+## FILES
 
-4. If neither exists, create them before starting
-
-5. **Install required skills** — see the [SKILLS](#skills) section. Install any that are missing, then invoke them before writing any frontend code.
-
-6. **All website/frontend code must be written in TypeScript.** Use Vite + TypeScript as the build stack. Source files go in `src/`. Never write plain HTML-only sites with inline scripts.
-
-7. **Reference Images** — if a reference image is provided: match layout, spacing, typography and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
-
-   - If no reference image: design from scratch with high craft (see guardrails below).
-   - Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when no visible differences remain or user says so.
-
-
- 
-
-## SKILLS
-
-The following skills must be installed on each project before writing any frontend code. Check if present and install if missing.
-
-| Skill | Install command |
+| Path | Purpose |
 |---|---|
-| `frontend-design` | `/plugin marketplace add anthropics/claude-code` then `/plugin install frontend-design@claude-code-plugins` |
-| `web-design-guidelines` | `npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines` |
-| `find-skills` | `npx skills add https://github.com/vercel-labs/skills --skill find-skills` |
+| `annotations.html` | The entire audit document — HTML/CSS/JS in one file |
+| `Screenshots/` | PNG screenshots of each SDM page (used as `<img>` sources in the HTML) |
+| `Screenshots/Errors/` | Error state screenshots |
+| `SKILL.md` | Skills install reference |
+
+## ANNOTATION SYSTEM
+
+Each page section in `annotations.html` has:
+- A **screenshot pane** with numbered `<div class="pin cat-*">` circles overlaid at `(left%, top%)` coordinates
+- An **issues pane** with matching `<div class="issue">` cards referencing the same numbers
+
+Pin/issue categories and their CSS class suffixes:
+
+| Category | Class | Color |
+|---|---|---|
+| UX | `cat-ux` | `#e63946` red |
+| Design | `cat-design` | `#f4a261` orange |
+| Content | `cat-content` | `#2a9d8f` green |
+| Tech | `cat-tech` | `#3a86ff` blue |
+| Trust | `cat-trust` | `#8338ec` purple |
+
+Each issue card contains `.issue-title`, `.issue-desc`, and `<span class="tag [category]">` badges.
+
+## DESIGN TOKENS (annotations.html)
+
+These CSS variables are defined in `:root` and must stay consistent throughout the document:
+
+```
+--red: #e63946  --orange: #f4a261  --green: #2a9d8f
+--blue: #3a86ff  --purple: #8338ec
+--bg: #f0f4f8  --surface: #ffffff  --border: #dde3ea
+--text: #1a2332  --muted: #5a6a7e  --radius: 12px
+```
+
+Page section headers use `background: #1a2332`. The site header uses a gradient: `linear-gradient(135deg, #1a2332 0%, #2d4a6e 100%)`.
 
 ## SCREENSHOT WORKFLOW
- 
-- Puppeteer is installed locally in this project (`node_modules/puppeteer`). Chrome cache is at `C:/Users/Tim/.cache/puppeteer/`.
-- Always screenshot from localhost: node screenshot.js http://localhost:[port]/site1.html screenshots/label.png
-- The script is `screenshot.js` (not screenshot.mjs). Usage: `node screenshot.js <url> <output-path> [width] [height]`
-- Screenshots save to `screenshots/` directory (tracked in .gitignore, untracked from git)
-- screenshot.js lives in the project root. Use it as-is.
-- After screenshotting, read the PNG from temporary screenshots/ with the Read tool — Claude can see and analyze the image directly.
-- When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"
-- Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing
+
+Puppeteer is installed locally (`node_modules/puppeteer`). Chrome cache: `C:/Users/Tim/.cache/puppeteer/`.
+
+```
+node screenshot.js http://localhost:[port]/page.html screenshots/label.png [width] [height]
+```
+
+- Script is `screenshot.js` (not `.mjs`) at project root
+- After screenshotting, read the PNG with the Read tool to compare visually
+- Do at least 2 comparison rounds against a reference image; stop only when no visible differences remain
+
+## CLAUDE CODE CONFIGURATION
+
+The `.claude/` folder is a configuration template — these files govern Claude's own behaviour in this repo:
+
+| Path | Purpose |
+|---|---|
+| `.claude/settings.json` | Permissions allowlist/denylist, hooks config, model |
+| `.claude/agents/code-reviewer.md` | Subagent: reviews diffs (CRITICAL / WARNING / SUGGESTION) |
+| `.claude/commands/fix-issue.md` | Slash command: `/fix-issue [number]` |
+| `.claude/hooks/pre-commit.sh` | Pre-commit validation hook |
+| `.claude/rules/frontend.md` | Scoped rules for `components/**/*.tsx` and `app/**/*.tsx` |
+| `.claude/skills/SKILL.md` | `frontend-design` skill with design tokens |
 
 ## OPERATING RULES
 
-### 1. Plan First
-
-- Enter plan mode for any non-trivial task (3+ steps)
-
-- Write plan to tasks/todo.md before implementing
-
-- If something goes wrong, STOP and re-plan — never push through
-
- 
-
-### 2. Subagent Strategy
-
-- Use subagents to keep main context clean
-
-- One task per subagent
-
-- Throw more compute at hard problems
-
- 
-
-### 3. Self-Improvement Loop
-
-- After any correction: update tasks/lessons.md
-
-- Format: [date] | what went wrong | rule to prevent it
-
-- Review lessons at every session start
-
- 
-
-### 4. Verification Standard
-
-- Never mark complete without proving it works
-
-- Run tests, check logs, diff behavior
-
-- Ask: "Would a staff engineer approve this?"
-
- 
-
-### 5. Demand Elegance
-
-- For non-trivial changes: is there a more elegant solution?
-
-- If a fix feels hacky: rebuild it properly
-
-- Don't over-engineer simple things
-
- 
-
-### 6. Autonomous Bug Fixing
-
-- When given a bug: just fix it
-
-- Go to logs, find root cause, resolve it
-
-- No hand-holding needed
-
- 
-
-## CORE PRINCIPLES
-
-- Simplicity First — touch minimal code
-
-- No Laziness — root causes only, no temp fixes
-
-- Never Assume — verify paths, APIs, variables before using
-
-- Ask Once — one question upfront if unclear, never interrupt mid-task
-
- 
-
-## TASK MANAGEMENT
-
-1. Plan → tasks/todo.md
-
-2. Verify → confirm before implementing
-
-3. Track → mark complete as you go
-
-4. Explain → high-level summary each step
-
-5. Commit → **Only commit when the user explicitly says to commit.** Never commit proactively after completing a task. Commits happen after the user has reviewed the work and given the go-ahead. Only merge `dev` into `main` when features are fully complete and verified — never merge work-in-progress.
-
-   **Commit size rule:** Each commit must be small and focused — one feature or one area of change at a time. Examples of correct scope: a change to the hero section, a fix to the testimonials carousel, an update to the stats bar. Never bundle multiple unrelated features into a single commit. If the user says "commit all changes", group them into logical small commits rather than one large one.
-
-6. Learn → tasks/lessons.md after corrections
+- **Plan first** — enter plan mode for any non-trivial task; write plan to `tasks/todo.md` before implementing.
+- **Never work on `main` directly** — branch to `dev`, merge only when complete and verified.
+- **Self-improvement** — after any correction, append to `tasks/lessons.md`: `[date] | what went wrong | rule to prevent it`.
+- **Commits only when asked** — small, focused commits; never bundle unrelated changes.

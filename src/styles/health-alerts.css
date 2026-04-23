@@ -1,0 +1,226 @@
+/* ── Alerts header ───────────────────────────────────── */
+.alerts-header {
+  background: var(--navy);
+  padding: var(--space-16) 0 var(--space-12);
+}
+.alerts-header .section-label { color: var(--green); }
+.alerts-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: var(--space-3);
+}
+.alerts-header p {
+  color: rgba(255,255,255,.65);
+  font-size: var(--text-lg);
+  max-width: 560px;
+}
+.alerts-reviewed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.6);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-top: var(--space-5);
+}
+
+/* ── Active alert card ───────────────────────────────── */
+.alerts-content {
+  padding: var(--space-12) 0 var(--space-20);
+}
+.active-alert {
+  background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%);
+  border: 2px solid #f59e0b;
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-start;
+  margin-bottom: var(--space-10);
+}
+.alert-badge {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-md);
+  background: #f59e0b;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+.alert-badge svg { width: 26px; height: 26px; }
+.alert-tag {
+  display: inline-block;
+  background: #f59e0b;
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.active-alert h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: var(--space-2);
+}
+.active-alert .alert-date {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+.active-alert p {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+/* ── Symptom checklist ───────────────────────────────── */
+.symptoms-section {
+  margin-bottom: var(--space-10);
+}
+.symptoms-section h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: var(--space-6);
+}
+.symptoms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+.symptom-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  transition: border-color var(--duration);
+}
+.symptom-item:hover { border-color: var(--green); }
+.symptom-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-sm);
+  background: var(--green-light);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green-dark);
+}
+.symptom-icon svg { width: 22px; height: 22px; }
+.symptom-item span {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ── What to do callout ──────────────────────────────── */
+.what-to-do {
+  background: var(--navy);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-10);
+  display: flex;
+  gap: var(--space-8);
+  align-items: center;
+  margin-bottom: var(--space-12);
+}
+.what-to-do-text h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: var(--space-2);
+}
+.what-to-do-text p {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,.65);
+  max-width: 480px;
+}
+.what-to-do-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* ── Additional alert cards ──────────────────────────── */
+.additional-alerts h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: var(--space-6);
+}
+.alerts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+.alert-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: box-shadow var(--duration), transform var(--duration);
+}
+.alert-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.alert-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.alert-card-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.alert-card-icon svg { width: 18px; height: 18px; }
+.alert-card h4 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--navy);
+}
+.alert-card-date {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+.alert-card p {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+.alert-card-link {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--green-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: gap var(--duration);
+}
+.alert-card-link:hover { gap: var(--space-2); }
+
+@media (max-width: 900px) {
+  .symptoms-grid { grid-template-columns: repeat(2, 1fr); }
+  .alerts-grid { grid-template-columns: repeat(2, 1fr); }
+  .what-to-do { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
+  .active-alert { flex-direction: column; }
+}
+@media (max-width: 600px) {
+  .symptoms-grid { grid-template-columns: repeat(2, 1fr); }
+  .alerts-grid { grid-template-columns: 1fr; }
+}

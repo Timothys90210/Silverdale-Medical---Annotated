@@ -4,99 +4,271 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Silverdale Medical — Website Audit & Improvement Opportunities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red: #e63946;
+      /* Category colours */
+      --red:    #e63946;
       --orange: #f4a261;
-      --green: #2a9d8f;
-      --blue: #3a86ff;
+      --green:  #2a9d8f;
+      --blue:   #3a86ff;
       --purple: #8338ec;
-      --bg: #f0f4f8;
+      /* Brand */
+      --navy:        #032134;
+      --navy-mid:    #0a3a57;
+      --navy-light:  #1a4a6a;
+      --brand-green: #89c65a;
+      /* Surface */
+      --bg:      #f4f6f8;
       --surface: #ffffff;
-      --border: #dde3ea;
-      --text: #1a2332;
-      --muted: #5a6a7e;
-      --radius: 12px;
+      --border:  #e2e8ef;
+      --text:    #0f1f2e;
+      --muted:   #5a6b7c;
+      --radius:  10px;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      font-size: 15px;
     }
 
-    /* ─── Header ─────────────────────────────────────────────── */
+    /* ─── Cover / Header ────────────────────────────────────────── */
     .site-header {
-      background: linear-gradient(135deg, #1a2332 0%, #2d4a6e 100%);
+      background: var(--navy);
       color: #fff;
-      padding: 48px 40px;
-      text-align: center;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
     }
-    .site-header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
-    .site-header p  { margin-top: 10px; color: #a8b8cc; font-size: 1rem; max-width: 640px; margin-inline: auto; }
+    .site-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 80% 50%, rgba(137,198,90,.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 10% 30%, rgba(58,134,255,.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 64px 56px 52px;
+      position: relative;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .header-logo-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 40px;
+      padding: 6px 16px 6px 8px;
+    }
+    .header-logo-dot {
+      width: 28px;
+      height: 28px;
+      background: var(--brand-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-logo-dot svg { width: 14px; height: 14px; }
+    .header-logo-pill span {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: rgba(255,255,255,.75);
+    }
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255,255,255,.15);
+    }
+    .header-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--brand-green);
+    }
+    .header-inner h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #fff;
+      max-width: 760px;
+      margin-bottom: 20px;
+    }
+    .header-inner h1 em {
+      font-style: italic;
+      color: var(--brand-green);
+    }
+    .header-inner > .header-inner-wrap > p {
+      color: rgba(255,255,255,.6);
+      font-size: 1rem;
+      max-width: 580px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+    .header-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--brand-green);
+      margin-bottom: 24px;
+    }
+
+    /* Legend row */
     .badge-legend {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 0;
     }
     .badge-legend span {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.1); border-radius: 20px;
-      padding: 6px 14px; font-size: .8rem; color: #d0dce8;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,.7);
+      letter-spacing: 0.1px;
     }
     .dot {
-      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
-    /* ─── Summary bar ─────────────────────────────────────────── */
+    /* ─── Summary strip ─────────────────────────────────────────── */
     .summary-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 40px;
-      display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .summary-bar .stat { text-align: center; }
-    .summary-bar .stat strong { display: block; font-size: 1.8rem; font-weight: 700; color: var(--red); }
-    .summary-bar .stat small { color: var(--muted); font-size: .8rem; }
+    .summary-bar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 56px;
+      display: flex;
+      gap: 0;
+    }
+    .summary-bar .stat {
+      flex: 1;
+      padding: 28px 24px;
+      border-right: 1px solid rgba(255,255,255,.07);
+      text-align: left;
+    }
+    .summary-bar .stat:last-child { border-right: none; }
+    .summary-bar .stat strong {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--brand-green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .summary-bar .stat small {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+    }
 
-    /* ─── Layout ──────────────────────────────────────────────── */
-    .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
+    /* ─── Layout ────────────────────────────────────────────────── */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 52px 56px;
+    }
 
+    /* ─── Page sections ─────────────────────────────────────────── */
     .page-section {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 60px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      margin-bottom: 52px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 8px 32px rgba(0,0,0,.06);
     }
 
     .page-section-header {
-      background: #1a2332;
+      background: var(--navy);
       color: #fff;
-      padding: 20px 28px;
-      display: flex; align-items: center; gap: 16px;
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-section-header::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 3px;
+      background: var(--brand-green);
     }
     .page-section-header .page-num {
-      background: var(--blue);
-      width: 34px; height: 34px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: .9rem; flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(137,198,90,.15);
+      border: 1px solid rgba(137,198,90,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand-green);
+      flex-shrink: 0;
+      font-family: 'DM Serif Display', serif;
     }
-    .page-section-header h2 { font-size: 1.15rem; font-weight: 600; }
-    .page-section-header .url { color: #7a9abf; font-size: .8rem; margin-top: 2px; }
-
-    .page-body {
-      display: block;
+    .page-section-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+      color: #fff;
+    }
+    .page-section-header .url {
+      font-size: 11px;
+      color: rgba(255,255,255,.38);
+      margin-top: 3px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
     }
 
-    /* ─── Screenshot pane ─────────────────────────────────────── */
+    .page-body { display: block; }
+
+    /* ─── Screenshot pane ───────────────────────────────────────── */
     .screenshot-pane {
       border-bottom: 1px solid var(--border);
-      background: #edf0f4;
-      padding: 32px 40px;
+      background: #eaecf0;
+      padding: 28px 36px;
     }
     .screenshot-wrapper {
       position: relative;
@@ -106,25 +278,31 @@
     .screenshot-wrapper img {
       width: 100%;
       display: block;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(0,0,0,.08);
       border-radius: 8px;
       box-shadow: 0 4px 24px rgba(0,0,0,.12);
     }
 
-    /* Annotation pin */
+    /* ─── Annotation pin ────────────────────────────────────────── */
     .pin {
       position: absolute;
       transform: translate(-50%, -50%);
-      width: 32px; height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 800; color: #fff;
-      border: 2.5px solid rgba(255,255,255,.9);
-      box-shadow: 0 2px 12px rgba(0,0,0,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.95);
+      box-shadow: 0 2px 10px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.12);
       cursor: default;
       z-index: 10;
       line-height: 1;
       pointer-events: none;
+      font-family: 'DM Sans', sans-serif;
     }
     .pin.cat-ux      { background: var(--red); }
     .pin.cat-design  { background: var(--orange); }
@@ -132,34 +310,58 @@
     .pin.cat-tech    { background: var(--blue); }
     .pin.cat-trust   { background: var(--purple); }
 
-    /* ─── Issues pane ─────────────────────────────────────────── */
+    /* ─── Issues pane ───────────────────────────────────────────── */
     .issues-pane {
       padding: 28px 32px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 12px;
       align-content: start;
     }
     .issues-pane h3 {
       grid-column: 1 / -1;
-      font-size: .7rem; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
       margin-bottom: 4px;
+      opacity: 0.7;
     }
 
     .issue {
-      display: flex; gap: 14px;
+      display: flex;
+      gap: 12px;
       padding: 14px 16px;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #fafbfc;
+      border-radius: 8px;
+      background: #fff;
+      transition: box-shadow .15s;
+    }
+    .issue:hover {
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
     }
 
+    /* Category-coloured left accent */
+    .issue.cat-ux-border      { border-left: 3px solid var(--red); }
+    .issue.cat-design-border  { border-left: 3px solid var(--orange); }
+    .issue.cat-content-border { border-left: 3px solid var(--green); }
+    .issue.cat-tech-border    { border-left: 3px solid var(--blue); }
+    .issue.cat-trust-border   { border-left: 3px solid var(--purple); }
+
     .issue-pin {
-      width: 28px; height: 28px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; color: #fff;
-      flex-shrink: 0; margin-top: 1px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-family: 'DM Sans', sans-serif;
     }
     .issue-pin.cat-ux      { background: var(--red); }
     .issue-pin.cat-design  { background: var(--orange); }
@@ -168,87 +370,253 @@
     .issue-pin.cat-trust   { background: var(--purple); }
 
     .issue-body {}
-    .issue-title { font-weight: 600; font-size: .9rem; margin-bottom: 3px; }
-    .issue-desc  { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+    .issue-title {
+      font-weight: 600;
+      font-size: 13.5px;
+      margin-bottom: 4px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .issue-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
 
     .tag {
-      display: inline-block; font-size: .68rem; font-weight: 600;
-      padding: 2px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 4px;
-      letter-spacing: .3px;
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 4px;
+      margin-bottom: 2px;
+      letter-spacing: .2px;
     }
     .tag.ux      { background: #fde8e8; color: #b91c1c; }
-    .tag.design  { background: #fff1e6; color: #c2410c; }
+    .tag.design  { background: #fff0e4; color: #c2410c; }
     .tag.content { background: #d1fae5; color: #065f46; }
     .tag.tech    { background: #dbeafe; color: #1e40af; }
     .tag.trust   { background: #ede9fe; color: #6d28d9; }
 
-    /* ─── Global opportunities ────────────────────────────────── */
+    /* ─── Global opportunities ──────────────────────────────────── */
     .global-section {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 14px;
       overflow: hidden;
-      margin-bottom: 60px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      margin-bottom: 52px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 8px 32px rgba(0,0,0,.06);
     }
+
     .global-header {
-      background: linear-gradient(135deg, #2a9d8f 0%, #1a6b63 100%);
+      background: var(--navy);
       color: #fff;
-      padding: 20px 28px;
+      padding: 28px 36px;
+      position: relative;
+      overflow: hidden;
     }
-    .global-header h2 { font-size: 1.15rem; font-weight: 600; }
-    .global-header p  { color: rgba(255,255,255,.75); font-size: .85rem; margin-top: 4px; }
+    .global-header::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 3px;
+      background: var(--brand-green);
+    }
+    .global-header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(137,198,90,.06);
+      pointer-events: none;
+    }
+    .global-header-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--brand-green);
+      margin-bottom: 10px;
+    }
+    .global-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+    .global-header p {
+      color: rgba(255,255,255,.5);
+      font-size: 13px;
+      max-width: 520px;
+    }
 
     .global-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 0;
     }
     .global-card {
-      padding: 24px 28px;
+      padding: 28px 30px;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      transition: background .15s;
     }
+    .global-card:hover { background: #fafbfc; }
     .global-card:nth-child(3n) { border-right: none; }
-    .global-card-icon { font-size: 1.5rem; margin-bottom: 10px; }
-    .global-card h4   { font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
-    .global-card p    { font-size: .82rem; color: var(--muted); line-height: 1.5; }
 
-    /* priority matrix */
+    .global-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .global-card h4 {
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .global-card p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── Priority matrix ───────────────────────────────────────── */
+    .matrix-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 28px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .matrix-header::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 3px;
+      background: var(--brand-green);
+    }
+    .matrix-header-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--brand-green);
+      margin-bottom: 10px;
+    }
+    .matrix-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+    .matrix-header p {
+      color: rgba(255,255,255,.5);
+      font-size: 13px;
+    }
+
     .matrix {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
     }
     .matrix-cell {
-      padding: 24px 28px;
+      padding: 28px 32px;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
     .matrix-cell:nth-child(even) { border-right: none; }
-    .matrix-cell h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; }
-    .matrix-cell ul { padding-left: 16px; }
-    .matrix-cell li { font-size: .82rem; color: var(--muted); margin-bottom: 6px; }
-    .do-now   { color: var(--red) !important; }
-    .do-next  { color: var(--orange) !important; }
-    .do-later { color: var(--green) !important; }
-    .do-dream { color: var(--blue) !important; }
+    .matrix-cell:nth-child(n+3)  { border-bottom: none; }
 
-    /* ─── Print button (screen only) ────────────────────────── */
-    .print-btn {
-      position: fixed; bottom: 24px; right: 24px; z-index: 100;
-      background: #1a2332; color: #fff;
-      border: none; border-radius: 8px;
-      padding: 12px 22px; font-size: .88rem; font-weight: 600;
-      cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.25);
-      display: flex; align-items: center; gap: 8px;
+    .matrix-cell-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px 4px 8px;
+      border-radius: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
     }
-    .print-btn:hover { background: #2d4a6e; }
+    .matrix-cell-label .label-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .label-now    { background: #fde8e8; color: #b91c1c; }
+    .label-next   { background: #fff0e4; color: #c2410c; }
+    .label-later  { background: #d1fae5; color: #065f46; }
+    .label-dream  { background: #dbeafe; color: #1e40af; }
 
-    /* ─── PDF / Print ────────────────────────────────────────── */
+    .matrix-cell ul {
+      padding-left: 0;
+      list-style: none;
+    }
+    .matrix-cell li {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .matrix-cell li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+      font-size: 11px;
+    }
+
+    /* ─── Print button ──────────────────────────────────────────── */
+    .print-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 100;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,.22);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.2px;
+      transition: background .15s, transform .1s;
+    }
+    .print-btn:hover {
+      background: var(--navy-mid);
+      transform: translateY(-1px);
+    }
+    .print-btn svg { opacity: .8; }
+
+    /* ─── Footer note ───────────────────────────────────────────── */
+    .doc-footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11.5px;
+      padding: 40px 0 52px;
+      opacity: .6;
+      letter-spacing: 0.3px;
+    }
+
+    /* ─── PDF / Print ───────────────────────────────────────────── */
     @media print {
 
-      /* Force all background colours and images to render */
       *, *::before, *::after {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -259,29 +627,22 @@
         margin: 12mm 14mm;
       }
 
-      /* Cover page: header + summary bar sit together, then page break */
-      .site-header   { break-after: avoid; padding: 28px 32px; }
-      .summary-bar   { break-after: page;  padding: 16px 32px; }
+      .site-header   { break-after: avoid; }
+      .summary-bar   { break-after: page; }
 
-      /* Each page section begins on a fresh page */
       .page-section  { break-before: page; margin-bottom: 0; border-radius: 0; }
-
-      /* Global sections also get their own page */
       .global-section { break-before: page; border-radius: 0; }
 
-      /* Never split an issue row or a card mid-page */
       .issue         { break-inside: avoid; }
       .global-card   { break-inside: avoid; }
       .matrix-cell   { break-inside: avoid; }
 
-      /* Remove screen chrome that wastes ink */
       body           { background: #fff; }
       .container     { max-width: 100%; padding: 0; }
       .print-btn     { display: none; }
       .page-section,
       .global-section { box-shadow: none; overflow: visible; border: 1px solid #ccd3db; }
 
-      /* Restore side-by-side for print so screenshots don't push issues off-page */
       .page-body {
         display: grid;
         grid-template-columns: 42% 1fr;
@@ -290,14 +651,12 @@
         border-bottom: none;
         border-right: 1px solid var(--border);
         padding: 14px;
-        background: #f0f2f5;
+        background: #eaecf0;
       }
       .screenshot-wrapper img { max-height: 460px; width: auto; max-width: 100%; }
 
-      /* Annotation pins — keep them visible at print size */
       .pin { width: 20px; height: 20px; font-size: 10px; border-width: 1.5px; }
 
-      /* Issues pane: single column in print */
       .issues-pane {
         display: block;
         padding: 16px 20px;
@@ -310,23 +669,21 @@
       }
       .issue-desc { font-size: .76rem; }
 
-      /* Section headers */
-      .page-section-header { padding: 14px 20px; }
+      .page-section-header { padding: 14px 24px; }
       .page-section-header h2 { font-size: 1rem; }
 
-      /* Global grid: force 3 equal columns in landscape */
       .global-grid { grid-template-columns: repeat(3, 1fr); }
       .global-card:nth-child(3n)   { border-right: none; }
       .global-card:nth-child(3n+1) { border-right: 1px solid var(--border); }
       .global-card:nth-child(3n+2) { border-right: 1px solid var(--border); }
 
-      /* Priority matrix: keep 2 columns */
       .matrix { grid-template-columns: 1fr 1fr; }
 
-      /* Badge legend in header */
       .badge-legend span { background: rgba(255,255,255,.15); }
 
-      /* Footer note */
+      .header-inner { padding: 36px 40px 28px; }
+      .summary-bar-inner { padding: 0 40px; }
+
       body > .container > p:last-child { break-before: avoid; }
     }
   </style>
@@ -334,29 +691,46 @@
 <body>
 
 <button class="print-btn" onclick="window.print()">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
   Save as PDF
 </button>
 
-<!-- ═══════════════════════════════════════════════════ HEADER -->
+<!-- ═══════════════════════════════════════════════════ COVER -->
 <header class="site-header">
-  <h1>Silverdale Medical — Here's What We Found</h1>
-  <p>A walk through every page on the current site — what's working, what's ready for a refresh, and where some fairly straightforward changes could make a real difference for your patients.</p>
-  <div class="badge-legend">
-    <span><span class="dot" style="background:var(--red)"></span> UX / Usability</span>
-    <span><span class="dot" style="background:var(--orange)"></span> Visual Design</span>
-    <span><span class="dot" style="background:var(--green)"></span> Content</span>
-    <span><span class="dot" style="background:var(--blue)"></span> Technical</span>
-    <span><span class="dot" style="background:var(--purple)"></span> Trust &amp; Credibility</span>
+  <div class="header-inner">
+    <div class="header-meta">
+      <div class="header-logo-pill">
+        <div class="header-logo-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span>Silverdale Medical</span>
+      </div>
+      <div class="header-divider"></div>
+      <span class="header-label">Website Audit · April 2026</span>
+    </div>
+    <div class="header-inner-wrap">
+      <h1>Here's what we<br><em>found on your site</em></h1>
+      <div class="header-rule"></div>
+      <p>A walk through every page on the current site — what's working, what's ready for a refresh, and where some fairly straightforward changes could make a real difference for your patients.</p>
+      <div class="badge-legend">
+        <span><span class="dot" style="background:var(--red)"></span>UX / Usability</span>
+        <span><span class="dot" style="background:var(--orange)"></span>Visual Design</span>
+        <span><span class="dot" style="background:var(--green)"></span>Content</span>
+        <span><span class="dot" style="background:var(--blue)"></span>Technical</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Trust &amp; Credibility</span>
+      </div>
+    </div>
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════ SUMMARY BAR -->
+<!-- ═══════════════════════════════════════════ SUMMARY BAR -->
 <div class="summary-bar">
-  <div class="stat"><strong>8</strong><small>Pages Reviewed</small></div>
-  <div class="stat"><strong>52</strong><small>Things we spotted</small></div>
-  <div class="stat"><strong>14</strong><small>Do these first</small></div>
-  <div class="stat"><strong>9</strong><small>Run through everything</small></div>
+  <div class="summary-bar-inner">
+    <div class="stat"><strong>8</strong><small>Pages Reviewed</small></div>
+    <div class="stat"><strong>52</strong><small>Things we spotted</small></div>
+    <div class="stat"><strong>14</strong><small>Do these first</small></div>
+    <div class="stat"><strong>9</strong><small>Site-wide opportunities</small></div>
+  </div>
 </div>
 
 <div class="container">
@@ -374,7 +748,6 @@
     <div class="screenshot-pane">
       <div class="screenshot-wrapper">
         <img src="Screenshots/SDM - Home page.png" alt="Home page screenshot" />
-        <!-- Annotations -->
         <span class="pin cat-design" style="left:50%;top:1.5%">1</span>
         <span class="pin cat-ux"     style="left:50%;top:3.5%">2</span>
         <span class="pin cat-ux"     style="left:80%;top:3.5%">3</span>
@@ -390,7 +763,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">1</div>
         <div class="issue-body">
           <div class="issue-title">Give the nav a bit more breathing room</div>
@@ -399,7 +772,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">2</div>
         <div class="issue-body">
           <div class="issue-title">The enrolment message is good — let's make sure people actually see it</div>
@@ -408,7 +781,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">3</div>
         <div class="issue-body">
           <div class="issue-title">Those quick action buttons are great — they just need a bit of polish</div>
@@ -417,7 +790,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">4</div>
         <div class="issue-body">
           <div class="issue-title">Swap the stock photo for something real</div>
@@ -426,7 +799,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">5</div>
         <div class="issue-body">
           <div class="issue-title">Those info cards have good stuff in them — let's tidy them up</div>
@@ -435,7 +808,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">6</div>
         <div class="issue-body">
           <div class="issue-title">The location cards just need to match each other</div>
@@ -444,7 +817,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">7</div>
         <div class="issue-body">
           <div class="issue-title">The services section could use a refresh</div>
@@ -453,7 +826,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">8</div>
         <div class="issue-body">
           <div class="issue-title">This section has the right idea — give it more room</div>
@@ -462,7 +835,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">9</div>
         <div class="issue-body">
           <div class="issue-title">A few kind words from patients would go a long way here</div>
@@ -471,7 +844,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">10</div>
         <div class="issue-body">
           <div class="issue-title">The footer needs more room to breathe</div>
@@ -508,7 +881,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">1</div>
         <div class="issue-body">
           <div class="issue-title">It needs a photo up top — any photo, honestly</div>
@@ -517,7 +890,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">2</div>
         <div class="issue-body">
           <div class="issue-title">There's a really good story here — let's tell it properly</div>
@@ -526,7 +899,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">3</div>
         <div class="issue-body">
           <div class="issue-title">Careers probably deserves its own page</div>
@@ -535,7 +908,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">4</div>
         <div class="issue-body">
           <div class="issue-title">Show us the team — this is honestly the most important thing on this page</div>
@@ -544,7 +917,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-trust-border">
         <div class="issue-pin cat-trust">5</div>
         <div class="issue-body">
           <div class="issue-title">Show off the credentials — you've earned them</div>
@@ -553,7 +926,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">6</div>
         <div class="issue-body">
           <div class="issue-title">Four maps in the footer is a bit much</div>
@@ -591,7 +964,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">1</div>
         <div class="issue-body">
           <div class="issue-title">Start with a reason to keep reading</div>
@@ -600,7 +973,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">2</div>
         <div class="issue-body">
           <div class="issue-title">There's a lot of good information here — it just needs to breathe</div>
@@ -609,7 +982,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">3</div>
         <div class="issue-body">
           <div class="issue-title">The team photos are lovely — they just need a bit of tidying</div>
@@ -618,7 +991,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">4</div>
         <div class="issue-body">
           <div class="issue-title">What roles are actually open right now? Make that obvious</div>
@@ -627,7 +1000,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">5</div>
         <div class="issue-body">
           <div class="issue-title">How do people actually apply? That needs to be clearer</div>
@@ -636,7 +1009,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">6</div>
         <div class="issue-body">
           <div class="issue-title">Those landscape photos are stunning — use them properly</div>
@@ -645,7 +1018,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">7</div>
         <div class="issue-body">
           <div class="issue-title">Why is this a great place to work? Say it out loud</div>
@@ -681,7 +1054,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">1</div>
         <div class="issue-body">
           <div class="issue-title">This page could do so much more than Covid</div>
@@ -690,7 +1063,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">2</div>
         <div class="issue-body">
           <div class="issue-title">The headings here don't quite match the rest of the site</div>
@@ -699,7 +1072,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">3</div>
         <div class="issue-body">
           <div class="issue-title">Patients reading this are probably feeling rough — make it scannable</div>
@@ -708,7 +1081,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">4</div>
         <div class="issue-body">
           <div class="issue-title">After they've read this — what do they do next?</div>
@@ -717,7 +1090,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-tech-border">
         <div class="issue-pin cat-tech">5</div>
         <div class="issue-body">
           <div class="issue-title">Just add a "last reviewed" date — it matters more than you'd think</div>
@@ -753,7 +1126,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">1</div>
         <div class="issue-body">
           <div class="issue-title">A sentence of context at the top would really help</div>
@@ -762,7 +1135,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">2</div>
         <div class="issue-body">
           <div class="issue-title">Put faces on these cards if at all possible</div>
@@ -771,7 +1144,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">3</div>
         <div class="issue-body">
           <div class="issue-title">Some bios are there, some aren't — let's even that out</div>
@@ -780,7 +1153,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-trust-border">
         <div class="issue-pin cat-trust">4</div>
         <div class="issue-body">
           <div class="issue-title">How do patients actually get to see these specialists?</div>
@@ -789,7 +1162,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">5</div>
         <div class="issue-body">
           <div class="issue-title">As this list grows, some filters would save people a lot of scrolling</div>
@@ -826,7 +1199,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">1</div>
         <div class="issue-body">
           <div class="issue-title">The colour coding is a nice touch — just needs a key</div>
@@ -835,7 +1208,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">2</div>
         <div class="issue-body">
           <div class="issue-title">This page is long — let people jump to what they need</div>
@@ -844,7 +1217,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">3</div>
         <div class="issue-body">
           <div class="issue-title">These tables are tricky on a phone — worth fixing</div>
@@ -853,7 +1226,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">4</div>
         <div class="issue-body">
           <div class="issue-title">New patients won't know what "enrolled" means — explain it early</div>
@@ -862,7 +1235,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">5</div>
         <div class="issue-body">
           <div class="issue-title">Add a date so patients know these are the current fees</div>
@@ -871,7 +1244,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-tech-border">
         <div class="issue-pin cat-tech">6</div>
         <div class="issue-body">
           <div class="issue-title">Put the "Pay Online" button right here on this page</div>
@@ -908,7 +1281,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">1</div>
         <div class="issue-body">
           <div class="issue-title">Cards with images would make this so much more inviting</div>
@@ -917,7 +1290,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">2</div>
         <div class="issue-body">
           <div class="issue-title">A bit of organisation would go a long way here</div>
@@ -926,7 +1299,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">3</div>
         <div class="issue-body">
           <div class="issue-title">Longer articles need some visual breaks</div>
@@ -935,7 +1308,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">4</div>
         <div class="issue-body">
           <div class="issue-title">People reading this actually want to hear from you — capture that</div>
@@ -944,7 +1317,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">5</div>
         <div class="issue-body">
           <div class="issue-title">The Facebook widget slows everything down — a link does the same job</div>
@@ -953,7 +1326,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-tech-border">
         <div class="issue-pin cat-tech">6</div>
         <div class="issue-body">
           <div class="issue-title">Worth thinking about how this page scales as you add more content</div>
@@ -989,7 +1362,7 @@
     <div class="issues-pane">
       <h3>What we noticed</h3>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">1</div>
         <div class="issue-body">
           <div class="issue-title">"Links" doesn't really tell patients why they should care</div>
@@ -998,7 +1371,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-design-border">
         <div class="issue-pin cat-design">2</div>
         <div class="issue-body">
           <div class="issue-title">Just a line of context under each link would make a world of difference</div>
@@ -1007,7 +1380,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">3</div>
         <div class="issue-body">
           <div class="issue-title">Group them by topic so people can find what they need</div>
@@ -1016,7 +1389,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-ux-border">
         <div class="issue-pin cat-ux">4</div>
         <div class="issue-body">
           <div class="issue-title">The Arts Centre mention is a lovely detail — it just needs a better home</div>
@@ -1025,7 +1398,7 @@
         </div>
       </div>
 
-      <div class="issue">
+      <div class="issue cat-content-border">
         <div class="issue-pin cat-content">5</div>
         <div class="issue-body">
           <div class="issue-title">Links go stale — worth checking these every so often</div>
@@ -1041,61 +1414,62 @@
 <!-- ══════════════════════════════════════════════════ GLOBAL OPPORTUNITIES -->
 <section class="global-section">
   <div class="global-header">
+    <div class="global-header-kicker">Site-Wide</div>
     <h2>Things That Run Across the Whole Site</h2>
     <p>These aren't tied to any one page — they're the foundations. Getting these right first will make everything else land better.</p>
   </div>
   <div class="global-grid">
 
     <div class="global-card">
-      <div class="global-card-icon">📱</div>
+      <span class="global-card-icon">📱</span>
       <h4>It needs to work properly on a phone</h4>
       <p>Most patients will use this site on their phones — checking fees on the way to an appointment, looking up a number in a hurry. The new site needs to feel just as good on a small screen as it does on a desktop, from the very start.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">🎨</div>
+      <span class="global-card-icon">🎨</span>
       <h4>The site needs to feel like one thing, not many things</h4>
       <p>Right now different pages feel like they were built at different times — because they probably were. Deciding on two fonts, a few brand colours, and consistent spacing, then applying them everywhere, would pull the whole site together in a way that's immediately noticeable.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">♿</div>
+      <span class="global-card-icon">♿</span>
       <h4>Make sure everyone can use it</h4>
       <p>Some patients will have low vision, use a screen reader, or struggle with small text. Making sure the site has good contrast, clear labels, and works with a keyboard doesn't take much effort — and it means nobody gets left out.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">⚡</div>
+      <span class="global-card-icon">⚡</span>
       <h4>Slow pages are genuinely frustrating — especially for unwell patients</h4>
       <p>If someone's looking up symptoms or a phone number in a hurry, a slow-loading page is the last thing they need. Optimising images and cutting down on heavy embeds (those Google Maps in particular) would make a noticeable difference to how the site feels.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">🔍</div>
+      <span class="global-card-icon">🔍</span>
       <h4>People searching for a GP nearby should be finding you</h4>
       <p>Searches like "GP near Silverdale" or "doctor Millwater" are happening every day. With a bit of attention to how the site describes itself to Google, you'd be showing up for exactly those searches — from people actively looking for a practice like yours.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">🗺️</div>
+      <span class="global-card-icon">🗺️</span>
       <h4>The footer shows up on every single page — it's worth getting right</h4>
       <p>Every patient who scrolls to the bottom of any page sees this. Right now it's a bit crowded and hard to read. A clean footer with proper spacing and a single locations link instead of four maps would feel much more considered.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">📞</div>
+      <span class="global-card-icon">📞</span>
       <h4>The phone number should be impossible to miss</h4>
       <p>For a medical practice, the phone number is arguably the most important thing on the whole site. It should be right at the top, on every page, big enough to tap easily on a phone. If someone needs to call urgently, they shouldn't have to go looking for it.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">🔐</div>
+      <span class="global-card-icon">🔐</span>
       <h4>A privacy policy needs to be easy to find</h4>
       <p>Patients are sharing health information with the practice — they should be able to find your Privacy Policy without hunting for it. It's a legal requirement, but more than that, it's just good for trust to show people their information is looked after properly.</p>
     </div>
 
     <div class="global-card">
-      <div class="global-card-icon">🌐</div>
+      <span class="global-card-icon">🌐</span>
       <h4>Make sure the padlock is always showing</h4>
       <p>Patients notice when a site isn't secure — especially when it's a health website. Keeping HTTPS running properly across every page, with a current certificate, is one of those things that just needs to be done. It's table stakes for any health site.</p>
     </div>
@@ -1105,13 +1479,17 @@
 
 <!-- ══════════════════════════════════════════════════ PRIORITY MATRIX -->
 <section class="global-section">
-  <div class="global-header">
+  <div class="matrix-header">
+    <div class="matrix-header-kicker">Roadmap</div>
     <h2>Where to Start</h2>
     <p>Not everything needs to happen at once. Here's a rough sense of what to tackle first, what comes next, and what can wait.</p>
   </div>
   <div class="matrix">
     <div class="matrix-cell">
-      <h4 class="do-now">🔴 Do these first — quick wins that matter</h4>
+      <div class="matrix-cell-label label-now">
+        <span class="label-dot" style="background:#e63946"></span>
+        Do these first — quick wins that matter
+      </div>
       <ul>
         <li>Phone number in the header, big and tappable</li>
         <li>Replace the footer maps with one locations link</li>
@@ -1122,7 +1500,10 @@
       </ul>
     </div>
     <div class="matrix-cell">
-      <h4 class="do-next">🟠 These make the biggest difference</h4>
+      <div class="matrix-cell-label label-next">
+        <span class="label-dot" style="background:#f4a261"></span>
+        These make the biggest difference
+      </div>
       <ul>
         <li>New navigation — sticky, mobile-friendly, with one clear CTA</li>
         <li>Real photography in the hero — this changes everything</li>
@@ -1133,7 +1514,10 @@
       </ul>
     </div>
     <div class="matrix-cell">
-      <h4 class="do-later">🟢 Once the core is sorted</h4>
+      <div class="matrix-cell-label label-later">
+        <span class="label-dot" style="background:#2a9d8f"></span>
+        Once the core is sorted
+      </div>
       <ul>
         <li>Consistent design across every page — fonts, colours, spacing</li>
         <li>Careers page with proper job cards and a culture section</li>
@@ -1144,7 +1528,10 @@
       </ul>
     </div>
     <div class="matrix-cell">
-      <h4 class="do-dream">🔵 The exciting stuff — when you're ready</h4>
+      <div class="matrix-cell-label label-dream">
+        <span class="label-dot" style="background:#3a86ff"></span>
+        The exciting stuff — when you're ready
+      </div>
       <ul>
         <li>Online appointment booking through a patient portal</li>
         <li>Repeat prescription requests online</li>
@@ -1157,9 +1544,7 @@
   </div>
 </section>
 
-<p style="text-align:center;color:var(--muted);font-size:.8rem;padding:40px;">
-  Silverdale Medical — Website Review, April 2026
-</p>
+<p class="doc-footer">Silverdale Medical — Website Review, April 2026</p>
 
 </div><!-- /container -->
 </body>
