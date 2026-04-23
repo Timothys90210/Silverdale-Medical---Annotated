@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fees &amp; Services — Silverdale Medical</title>
+  <link rel="stylesheet" href="/src/styles/tokens.css" />
+  <link rel="stylesheet" href="/src/styles/global.css" />
+  <link rel="stylesheet" href="/src/styles/nav.css" />
+  <link rel="stylesheet" href="/src/styles/footer.css" />
+  <link rel="stylesheet" href="/src/styles/fees.css" />
+</head>
+<body>
+
+  <div class="enrolment-banner">
+    <span>Enrolling new patients at all four locations.</span>
+    <a href="#">Check availability →</a>
+  </div>
+
+  <div id="nav-root"></div>
+
+  <main>
+
+    <!-- Page header -->
+    <div class="inner-page-header">
+      <div class="container">
+        <span class="section-label">Fees &amp; Services</span>
+        <h1>Transparent pricing,<br>no surprises <span class="itag itag-redesigned">Redesigned</span></h1>
+        <p>We believe you should always know what to expect before you arrive. These fees are current and inclusive of GST.</p>
+        <div class="header-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Fees current as of April 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky anchor nav -->
+    <div class="fees-nav">
+      <div class="container">
+        <div class="fees-nav-pills">
+          <button class="fees-pill active" data-target="enrolled">
+            <span class="fees-pill-dot" style="background:#22c55e"></span>
+            Enrolled Patients <span class="itag itag-new">New nav</span>
+          </button>
+          <button class="fees-pill" data-target="casual">
+            <span class="fees-pill-dot" style="background:#f59e0b"></span>
+            Casual Patients
+          </button>
+          <button class="fees-pill" data-target="specialist">
+            <span class="fees-pill-dot" style="background:#6366f1"></span>
+            Specialist Fees
+          </button>
+          <button class="fees-pill" data-target="pharmacy">
+            <span class="fees-pill-dot" style="background:#64748b"></span>
+            Pharmacy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fees content -->
+    <div class="fees-content">
+      <div class="container">
+
+        <!-- Enrolment callout -->
+        <div class="enrol-callout fade-up">
+          <div class="enrol-callout-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="enrol-callout-text">
+            <h3>Enrolled patients pay less — always <span class="itag itag-new">New callout</span></h3>
+            <p>Enrolling with us is free and takes just a few minutes. Once you're enrolled, you'll always receive the subsidised patient rate. <a href="#">Enrol today →</a></p>
+          </div>
+          <div class="enrol-callout-action">
+            <a href="#" class="btn btn-primary" style="font-size:var(--text-sm);padding:10px 20px">Enrol Now</a>
+          </div>
+        </div>
+
+        <!-- Pay online bar -->
+        <div class="pay-cta-bar fade-up">
+          <div>
+            <strong>Pay your bill online</strong>
+            <p>Settled quickly and securely from anywhere — no cash needed.</p>
+          </div>
+          <a href="#" class="btn btn-ghost" style="font-size:var(--text-sm);padding:10px 22px">Pay Online →</a>
+        </div>
+
+        <!-- Legend -->
+        <div class="fees-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Enrolled patient rate</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Casual patient rate</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#6366f1"></div> Specialist fees</div>
+        </div>
+
+        <!-- Enrolled Patients -->
+        <section class="fees-section fade-up" id="enrolled">
+          <div class="fees-section-header">
+            <div class="fees-section-dot" style="background:#22c55e"></div>
+            <h2>Enrolled Patient Fees <span class="itag itag-improved">Improved layout</span></h2>
+            <span>Subsidised rates — lower cost for enrolled patients</span>
+          </div>
+          <table class="fee-table fee-accent-green">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Details</th>
+                <th>Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fee-category-row"><td colspan="3">Standard Consultations</td></tr>
+              <tr>
+                <td>Standard GP Consultation</td>
+                <td>Up to 15 minutes</td>
+                <td>$19.50</td>
+              </tr>
+              <tr>
+                <td>Long GP Consultation</td>
+                <td>15–30 minutes</td>
+                <td>$39.00</td>
+              </tr>
+              <tr>
+                <td>Extended Consultation</td>
+                <td>30+ minutes</td>
+                <td>$58.00</td>
+              </tr>
+              <tr>
+                <td>Nurse Consultation</td>
+                <td>Up to 20 minutes</td>
+                <td>$12.00</td>
+              </tr>
+              <tr>
+                <td>Phone Consultation</td>
+                <td>GP phone consult</td>
+                <td>$19.50</td>
+              </tr>
+              <tr class="fee-category-row"><td colspan="3">Children &amp; Young People (Under 14)</td></tr>
+              <tr>
+                <td>Under 14 — Standard</td>
+                <td>All enrolled children</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Under 14 — Nurse</td>
+                <td>Immunisations, wound care</td>
+                <td>Free</td>
+              </tr>
+              <tr class="fee-category-row"><td colspan="3">Additional Services</td></tr>
+              <tr>
+                <td>Repeat Prescription</td>
+                <td>No appointment required</td>
+                <td>$18.00</td>
+              </tr>
+              <tr>
+                <td>Medical Certificate</td>
+                <td>Sick leave, insurance</td>
+                <td>$25.00</td>
+              </tr>
+              <tr>
+                <td>Skin Check</td>
+                <td>Full body skin examination</td>
+                <td>$45.00</td>
+              </tr>
+              <tr>
+                <td>Cervical Smear</td>
+                <td>Includes nurse time</td>
+                <td>Free</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Casual Patients -->
+        <section class="fees-section fade-up" id="casual">
+          <div class="fees-section-header">
+            <div class="fees-section-dot" style="background:#f59e0b"></div>
+            <h2>Casual Patient Fees <span class="itag itag-improved">Improved layout</span></h2>
+            <span>Non-enrolled visitors — standard rates apply</span>
+          </div>
+          <table class="fee-table fee-accent-orange">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Details</th>
+                <th>Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standard GP Consultation</td>
+                <td>Up to 15 minutes</td>
+                <td>$75.00</td>
+              </tr>
+              <tr>
+                <td>Long GP Consultation</td>
+                <td>15–30 minutes</td>
+                <td>$110.00</td>
+              </tr>
+              <tr>
+                <td>Extended Consultation</td>
+                <td>30+ minutes</td>
+                <td>$155.00</td>
+              </tr>
+              <tr>
+                <td>Nurse Consultation</td>
+                <td>Up to 20 minutes</td>
+                <td>$45.00</td>
+              </tr>
+              <tr>
+                <td>After Hours (Urgent)</td>
+                <td>Silverdale site only</td>
+                <td>$110.00</td>
+              </tr>
+              <tr>
+                <td>ACC Consultation</td>
+                <td>Injury treatment</td>
+                <td>$25.00</td>
+              </tr>
+              <tr>
+                <td>Under 14 (Casual)</td>
+                <td>Unregistered child</td>
+                <td>$40.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Specialist Fees -->
+        <section class="fees-section fade-up" id="specialist">
+          <div class="fees-section-header">
+            <div class="fees-section-dot" style="background:#6366f1"></div>
+            <h2>Specialist &amp; Allied Health Fees <span class="itag itag-new">New section</span></h2>
+            <span>Visiting specialists at our clinics</span>
+          </div>
+          <table class="fee-table">
+            <thead>
+              <tr>
+                <th>Specialist</th>
+                <th>Session Type</th>
+                <th>Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>General Surgeon</td>
+                <td>Initial consultation</td>
+                <td>$250.00</td>
+              </tr>
+              <tr>
+                <td>General Surgeon</td>
+                <td>Follow-up</td>
+                <td>$180.00</td>
+              </tr>
+              <tr>
+                <td>Dermatologist</td>
+                <td>Initial consultation</td>
+                <td>$300.00</td>
+              </tr>
+              <tr>
+                <td>Physiotherapist</td>
+                <td>Initial assessment</td>
+                <td>$95.00</td>
+              </tr>
+              <tr>
+                <td>Physiotherapist</td>
+                <td>Follow-up (30 min)</td>
+                <td>$75.00</td>
+              </tr>
+              <tr>
+                <td>Dietitian</td>
+                <td>Initial consultation</td>
+                <td>$120.00</td>
+              </tr>
+              <tr>
+                <td>Podiatrist</td>
+                <td>Consultation</td>
+                <td>$85.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Pharmacy -->
+        <section class="fees-section fade-up" id="pharmacy">
+          <div class="fees-section-header">
+            <div class="fees-section-dot" style="background:#64748b"></div>
+            <h2>Pharmacy &amp; Dispensing</h2>
+            <span>Standard PHARMAC co-payment applies</span>
+          </div>
+          <table class="fee-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Notes</th>
+                <th>Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Subsidised Prescription</td>
+                <td>Per item, PHARMAC funded</td>
+                <td>$5.00</td>
+              </tr>
+              <tr>
+                <td>Prescription (High Use)</td>
+                <td>After 20 items per year</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Unsubsidised Prescription</td>
+                <td>Varies by medication</td>
+                <td>POA</td>
+              </tr>
+              <tr>
+                <td>Blister Packing</td>
+                <td>Weekly medication packs</td>
+                <td>$15.00/wk</td>
+              </tr>
+              <tr>
+                <td>Prescription Delivery</td>
+                <td>Local area delivery</td>
+                <td>$5.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Pay again CTA -->
+        <div class="pay-cta-bar fade-up">
+          <div>
+            <strong>Ready to pay your account?</strong>
+            <p>Our online payment portal accepts all major credit and debit cards.</p>
+          </div>
+          <a href="#" class="btn btn-primary" style="font-size:var(--text-sm);padding:10px 22px">Pay Online →</a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <div id="footer-root"></div>
+
+  <script type="module" src="/src/pages/fees.ts"></script>
+</body>
+</html>
