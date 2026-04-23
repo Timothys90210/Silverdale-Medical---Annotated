@@ -1,10 +1,27 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git -C \"D:/projects/Silverdale Medical - Annotated\" log --oneline -10)",
-      "Bash(git *)",
+      "Bash(claude install-skill *)",
       "Bash(npx skills *)",
-      "Bash(node screenshot.js \"file:///d:/projects/Silverdale%20Medical%20-%20Annotated/annotations.html\" \"Screenshots/audit-preview.png\" 1440 900)"
+      "WebFetch(domain:lobehub.com)",
+      "Bash(npm uninstall *)",
+      "Bash(npm install *)",
+      "Bash(where claude *)",
+      "Bash(claude --version)",
+      "Bash(npx vite *)",
+      "Bash(node screenshot.js http://localhost:5173 screenshots/home-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173 screenshots/home-nav-closeup.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/about.html screenshots/about-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/fees.html screenshots/fees-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/specialists.html screenshots/specialists-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/news.html screenshots/news-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/health-alerts.html screenshots/alerts-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/careers.html screenshots/careers-desktop.png 1440 900)",
+      "Bash(node screenshot.js http://localhost:5173/patient-resources.html screenshots/resources-desktop.png 1440 900)",
+      "Bash(npx tsc *)",
+      "Bash(node screenshot.js http://localhost:5173 screenshots/home-mobile.png 390 844)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
